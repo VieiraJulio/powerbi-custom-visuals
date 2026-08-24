@@ -6,25 +6,27 @@ Este repositório centraliza o desenvolvimento e a documentação técnica de vi
 
 ---
 
-## 📂 Estrutura do Repositório
+## Organização do projeto
 
 Organizamos o repositório para separar claramente a documentação do código-fonte de cada visual construído:
 
 ```text
-📦 powerbi-custom-visuals
-┣ 📂 docs/               # Documentação técnica detalhada de cada visual
-┣ 📂 visuais/            # Código-fonte dos projetos individuais
-┃ ┗ 📂 BarraPercentual/  # Exemplo: Visual de Barra Percentual
-┃   ┣ 📂 src/            # Lógica principal (TypeScript: visual.ts, settings.ts)
-┃   ┣ 📂 style/          # Estilos do contêiner (LESS/CSS)
-┃   ┣ 📂 assets/         # Ícones do visual
-┃   ┣ 📂 dist/           # Arquivo empacotado (.pbiviz) pronto para uso
-┃   ┣ 📜 pbiviz.json     # Metadados do pacote (versão, autor, id)
-┃   ┗ 📜 capabilities.json # Definição de dados e painel de formatação
-┗ 📜 README.md           # Este arquivo de apresentação
+├── docs/                             <- Documentação técnica detalhada de cada visual.
+├── visuais/                          <- Código-fonte dos projetos individuais.
+│   │
+│   └── BarraPercentual/              <- Exemplo: Visual de Barra Percentual.
+│       │
+│       ├── src/                      <- Lógica principal (TypeScript: visual.ts, settings.ts).
+│       ├── style/                    <- Estilos do contêiner (LESS/CSS).
+│       ├── assets/                   <- Ícones do visual.
+│       ├── dist/                     <- Arquivo empacotado (.pbiviz) pronto para uso.
+│       ├── pbiviz.json               <- Metadados do pacote (versão, autor, id).
+│       └── capabilities.json         <- Definição de dados e painel de formatação.
+│
+└── README.md                         <- Este arquivo de apresentação.
 ```
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 Os visuais deste repositório são construídos utilizando o ecossistema oficial da Microsoft em conjunto com bibliotecas de renderização avançada:
 
@@ -35,13 +37,13 @@ Os visuais deste repositório são construídos utilizando o ecossistema oficial
 
 ---
 
-## 🌟 Visual em Destaque: Barra Percentual
+## Visual em Destaque: Barra Percentual
 
 **Status:** Versão Consolidada
 
 O **Visual de Barra Percentual** foi projetado para representar percentuais de atingimento de metas de forma elegante. Ele elimina a necessidade de editar arquivos JSON manualmente, encapsulando toda a lógica Vega-Lite em um visual nativo do Power BI.
 
-### ✨ Principais Funcionalidades
+### Principais Funcionalidades
 1. **Trilho Estável e Rótulos Flexíveis:** O fundo da barra sempre representa 100% da escala. O preenchimento visual é limitado a 100%, mas o rótulo de dados consegue exibir resultados superiores (ex: 127%) sem "quebrar" o layout.
 2. **Cálculo Inteligente:** Aceita uma medida percentual pronta ou calcula dinamicamente a taxa utilizando componentes: `(Valores Positivos - Valores Negativos) / Base`.
 3. **Cores por Faixas Configuráveis:** Configure pelo painel 5 faixas de cores sem usar DAX (Ruim, Baixa, Intermediária, Alta e Meta Atingida), além de aceitar cores via campo HEX.
@@ -50,7 +52,7 @@ O **Visual de Barra Percentual** foi projetado para representar percentuais de a
 
 ---
 
-## 🚀 Como Importar no Power BI (Usuários)
+## Como Importar no Power BI (Usuários)
 
 Para utilizar os visuais prontos em seus relatórios:
 
@@ -61,7 +63,7 @@ Para utilizar os visuais prontos em seus relatórios:
 
 ---
 
-## 💻 Como Executar e Desenvolver (Engenheiros)
+## Como Executar e Desenvolver (Engenheiros)
 
 ### Pré-requisitos
 * Node.js e npm instalados.
