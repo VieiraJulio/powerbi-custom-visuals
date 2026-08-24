@@ -1,4 +1,4 @@
-# 📊 Repositório de Visuais Personalizados - Power BI
+# Repositório de Visuais Personalizados - Power BI
 
 > Documentação oficial, guias de importação e código-fonte dos nossos visuais customizados para o Power BI.
 
