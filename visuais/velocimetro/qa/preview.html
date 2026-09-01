@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>QA — Velocímetro</title>
+    <link rel="stylesheet" href="../.tmp/drop/visual.css">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            padding: 28px;
+            color: #111827;
+            background: #f3f4f6;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+        h1 { margin: 0 0 6px; font-size: 22px; }
+        p { margin: 0 0 22px; color: #4b5563; font-size: 13px; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            align-items: start;
+        }
+        .card {
+            padding: 14px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
+        }
+        .card h2 { margin: 0 0 10px; font-size: 13px; }
+        .visual {
+            margin: 0 auto;
+            background: #fff;
+        }
+        .reference { width: 311px; height: 222px; }
+        .deneb-reference { width: 340px; height: 244px; }
+        .comparison { width: 400px; height: 245px; }
+        .end-reference { width: 402px; height: 274px; }
+        .standard { width: 260px; height: 190px; }
+        .compact { width: 150px; height: 105px; }
+    </style>
+</head>
+<body>
+    <h1>Velocímetro — prévia do bundle de produção</h1>
+    <p>Casos de fronteira e responsividade renderizados pela classe real do visual.</p>
+    <main class="grid">
+        <section class="card">
+            <h2>0% — estado inicial</h2>
+            <div id="gauge-0" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>0% — marcador inicial compacto</h2>
+            <div id="gauge-0-small" class="visual compact"></div>
+        </section>
+        <section class="card">
+            <h2>0,1% — preenchimento mínimo</h2>
+            <div id="gauge-01" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>1% — marcador livre da faixa</h2>
+            <div id="gauge-1" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>2% — marcador livre da faixa</h2>
+            <div id="gauge-2" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>5% — preenchimento curto</h2>
+            <div id="gauge-5" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Somente Faturamento — Meta ausente</h2>
+            <div id="gauge-actual-only" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Somente Faturamento — viewport compacto</h2>
+            <div id="gauge-actual-only-small" class="visual compact"></div>
+        </section>
+        <section class="card">
+            <h2>Faturamento com Meta zero — modo sem comparação</h2>
+            <div id="gauge-zero-target" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Faturamento BLANK — Meta válida</h2>
+            <div id="gauge-blank-actual" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Faturamento BLANK — Meta ausente</h2>
+            <div id="gauge-blank-both" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Sem Faturamento — campo obrigatório</h2>
+            <div id="gauge-no-actual" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>19% — dimensões da referência</h2>
+            <div id="gauge-19" class="visual reference"></div>
+        </section>
+        <section class="card">
+            <h2>32% — valor da referência Deneb</h2>
+            <div id="gauge-deneb-value" class="visual comparison"></div>
+        </section>
+        <section class="card">
+            <h2>50% — fidelidade ao Deneb em 340 × 244</h2>
+            <div id="gauge-deneb-fidelity" class="visual deneb-reference"></div>
+        </section>
+        <section class="card">
+            <h2>25% — marcador à frente da barra</h2>
+            <div id="gauge-marker-front" class="visual deneb-reference"></div>
+        </section>
+        <section class="card">
+            <h2>38% — valor longo com margem interna</h2>
+            <div id="gauge-production-value" class="visual comparison"></div>
+        </section>
+        <section class="card">
+            <h2>95% — geometria invariável</h2>
+            <div id="gauge-production-value-95" class="visual comparison"></div>
+        </section>
+        <section class="card">
+            <h2>38% — valor extremo dentro do arco</h2>
+            <div id="gauge-production-value-extreme" class="visual comparison"></div>
+        </section>
+        <section class="card">
+            <h2>47% — percentual próximo ao marcador</h2>
+            <div id="gauge-47" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>47% — distância 0 px</h2>
+            <div id="gauge-distance-0" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>47% — distância 5 px</h2>
+            <div id="gauge-distance-5" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>47% — distância 10 px</h2>
+            <div id="gauge-distance-10" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>47% — distância 20 px</h2>
+            <div id="gauge-distance-20" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>47% — distância 40 px</h2>
+            <div id="gauge-distance-40" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>0% — distância 0 px</h2>
+            <div id="gauge-edge-distance-0" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>0% — distância 40 px</h2>
+            <div id="gauge-edge-distance-40" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>47% compacto — distância 0 px</h2>
+            <div id="gauge-compact-distance-0" class="visual compact"></div>
+        </section>
+        <section class="card">
+            <h2>47% compacto — distância 10 px</h2>
+            <div id="gauge-compact-distance-10" class="visual compact"></div>
+        </section>
+        <section class="card">
+            <h2>47% compacto — distância 40 px</h2>
+            <div id="gauge-compact-distance-40" class="visual compact"></div>
+        </section>
+        <section class="card">
+            <h2>50% — fim da primeira faixa</h2>
+            <div id="gauge-50" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>50,01% — início da segunda faixa</h2>
+            <div id="gauge-5001" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>80% — fim da segunda faixa</h2>
+            <div id="gauge-80" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>80,01% — início da terceira faixa</h2>
+            <div id="gauge-8001" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>90% — faixa verde-clara do Deneb</h2>
+            <div id="gauge-90" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>90,01% — permanece na faixa verde-clara</h2>
+            <div id="gauge-9001" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>100% — meta atingida</h2>
+            <div id="gauge-100" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>99,995% — exibido como 100%, marcador final</h2>
+            <div id="gauge-rounded-100" class="visual end-reference"></div>
+        </section>
+        <section class="card">
+            <h2>125% — arco limitado, rótulo real</h2>
+            <div id="gauge-125" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>456% — marcador final e rótulo real</h2>
+            <div id="gauge-456" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>456% — marcador final compacto</h2>
+            <div id="gauge-456-small" class="visual compact"></div>
+        </section>
+        <section class="card">
+            <h2>19% — viewport compacto</h2>
+            <div id="gauge-small" class="visual compact"></div>
+        </section>
+        <section class="card">
+            <h2>80% — percentual compacto sem colisão</h2>
+            <div id="gauge-80-small" class="visual compact"></div>
+        </section>
+        <section class="card">
+            <h2>65% — cor fixa e valor independente</h2>
+            <div id="gauge-fixed" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>30% — valor por faixa vermelha</h2>
+            <div id="gauge-value-low" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>65% — valor preto na faixa amarela</h2>
+            <div id="gauge-value-medium" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>85% — valor preto na faixa verde-clara</h2>
+            <div id="gauge-value-high" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>95% — valor preto antes da meta</h2>
+            <div id="gauge-value-target" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>19% — PNG persistido</h2>
+            <div id="gauge-image" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>50% — formato escalado do Power BI</h2>
+            <div id="gauge-scaled" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Formato vazio — milhar obrigatório</h2>
+            <div id="gauge-format-empty" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Formato General — milhar obrigatório</h2>
+            <div id="gauge-format-general" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>R$ 0 — agrupamento acrescentado</h2>
+            <div id="gauge-format-plain" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>R$ 0.00 — decimal e agrupamento</h2>
+            <div id="gauge-format-decimal" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>F0 — formato padrão agrupado</h2>
+            <div id="gauge-format-fixed-standard" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>G3 — formato geral agrupado</h2>
+            <div id="gauge-format-general-standard" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>D0 — simula saída sem agrupamento do Service</h2>
+            <div id="gauge-format-service-ungrouped" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Literal com ponto-e-vírgula preservado</h2>
+            <div id="gauge-format-literal-semicolon" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Negativo — seção e agrupamento</h2>
+            <div id="gauge-format-negative-group" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Unidades automáticas</h2>
+            <div id="gauge-format-auto-units" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Unidades em milhares</h2>
+            <div id="gauge-format-thousand-units" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Unidades em milhões</h2>
+            <div id="gauge-format-million-units" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Unidades legadas 0 — sem escala</h2>
+            <div id="gauge-format-legacy-zero-units" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Meta visual 90% — traço no fim</h2>
+            <div id="gauge-target-threshold-edge" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Meta visual 89,9% — bolinha antes do fim</h2>
+            <div id="gauge-target-threshold-dot" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>Arco isolado — pontas espelhadas</h2>
+            <div id="gauge-track-symmetry" class="visual comparison"></div>
+        </section>
+        <section class="card">
+            <h2>19% — formato percentual sem espaço</h2>
+            <div id="gauge-percent-format" class="visual standard"></div>
+        </section>
+        <section class="card">
+            <h2>0% — seção negativa do formato</h2>
+            <div id="gauge-negative" class="visual standard"></div>
+        </section>
+    </main>
+
+    <script>window.powerbi = { visuals: { plugins: {} } };</script>
+    <script src="../.tmp/drop/visual.js?v=27-blank-embedded-format"></script>
+    <script>
+        const guid = "velocimetro0BBCD8D8C8D1450D88AABEC4EFC5D619";
+        const plugin = window.powerbi.visuals.plugins[guid];
+        const qaParameters = new URLSearchParams(window.location.search);
+        const qaHostEnvironment = Number(qaParameters.get("hostEnv") || 4);
+        const qaViewMode = Number(qaParameters.get("viewMode") || 0);
+        const qaFormatMode = qaParameters.get("formatMode") === "1";
+        const qaLocale = qaParameters.get("locale") || "pt-BR";
+
+        const host = {
+            locale: qaLocale,
+            hostEnv: qaHostEnvironment,
+            eventService: {
+                renderingStarted() {},
+                renderingFinished() {},
+                renderingFailed(_options, message) { console.error(message); }
+            },
+            tooltipService: {
+                show() {},
+                hide() {}
+            },
+            colorPalette: {
+                isHighContrast: false,
+                foreground: { value: "#111111" },
+                background: { value: "#ffffff" }
+            },
+            createLocalizationManager() {
+                return { getDisplayName(key) { return key; } };
+            },
+            persistProperties() {}
+        };
+
+        function renderGauge(id, ratio, objects = {}, overrides = {}) {
+            const element = document.getElementById(id);
+            const includeActual = overrides.includeActual !== false;
+            const includeTarget = overrides.includeTarget !== false;
+            const actualSource = {
+                displayName: "Faturamento",
+                roles: { actual: true },
+                format: Object.prototype.hasOwnProperty.call(
+                    overrides,
+                    "actualFormat"
+                ) ? overrides.actualFormat : "R$ #,0"
+            };
+            const targetSource = {
+                displayName: "Meta",
+                roles: { target: true },
+                format: overrides.targetFormat || "R$ #,0"
+            };
+            const target = overrides.target ?? 29802247;
+            const actual = Object.prototype.hasOwnProperty.call(
+                overrides,
+                "actual"
+            )
+                ? overrides.actual
+                : includeTarget ? target * ratio : 5662427;
+            const columns = [];
+            const values = [];
+            if (includeActual) {
+                columns.push(actualSource);
+                values.push({ source: actualSource, values: [actual] });
+            }
+            if (includeTarget) {
+                columns.push(targetSource);
+                values.push({ source: targetSource, values: [target] });
+            }
+            const dataView = {
+                metadata: {
+                    columns,
+                    objects
+                },
+                categorical: {
+                    values
+                }
+            };
+            const visual = plugin.create({ element, host });
+            visual.update({
+                viewport: {
+                    width: element.clientWidth,
+                    height: element.clientHeight
+                },
+                dataViews: [dataView],
+                viewMode: qaViewMode,
+                formatMode: qaFormatMode,
+                type: 2
+            });
+        }
+
+        renderGauge("gauge-0", 0);
+        renderGauge("gauge-0-small", 0);
+        renderGauge("gauge-01", .001, {
+            percentageLabel: { decimalPlaces: 1 }
+        });
+        renderGauge("gauge-1", .01);
+        renderGauge("gauge-2", .02);
+        renderGauge("gauge-5", .05);
+        renderGauge("gauge-actual-only", 0, {}, {
+            includeTarget: false,
+            actual: 5000,
+            actualFormat: "0"
+        });
+        renderGauge("gauge-actual-only-small", 0, {}, {
+            includeTarget: false,
+            actual: 5662427
+        });
+        renderGauge("gauge-zero-target", 0, {}, {
+            actual: 5000,
+            target: 0
+        });
+        renderGauge("gauge-blank-actual", 0, {}, {
+            actual: null,
+            target: 10000
+        });
+        renderGauge("gauge-blank-both", 0, {}, {
+            actual: null,
+            includeTarget: false
+        });
+        renderGauge("gauge-no-actual", 0, {}, {
+            includeActual: false,
+            target: 10000
+        });
+        renderGauge("gauge-19", .19);
+        renderGauge("gauge-deneb-value", .32, {}, {
+            actual: 6744016,
+            target: 21075050,
+            actualFormat: "R$ #,0"
+        });
+        renderGauge("gauge-deneb-fidelity", .5, {}, {
+            actual: 10000,
+            target: 20000,
+            actualFormat: "0"
+        });
+        renderGauge("gauge-marker-front", .25, {}, {
+            actual: 5000,
+            target: 20000,
+            actualFormat: "0"
+        });
+        renderGauge("gauge-production-value", .38, {}, {
+            actual: 11630290,
+            target: 30606026.315789474,
+            actualFormat: "R$ #,0"
+        });
+        renderGauge("gauge-production-value-95", .95, {}, {
+            actual: 11630290,
+            target: 12242410.52631579,
+            actualFormat: "R$ #,0"
+        });
+        renderGauge("gauge-production-value-extreme", .38, {}, {
+            actual: 9999999999999,
+            target: 26315789473681.58,
+            actualFormat: "R$ #,0"
+        });
+        renderGauge("gauge-47", .47);
+        [0, 5, 10, 20, 40].forEach((distance) => {
+            renderGauge(`gauge-distance-${distance}`, .47, {
+                percentageLabel: { verticalOffsetPercent: distance }
+            });
+        });
+        renderGauge("gauge-edge-distance-0", 0, {
+            percentageLabel: { verticalOffsetPercent: 0 }
+        });
+        renderGauge("gauge-edge-distance-40", 0, {
+            percentageLabel: { verticalOffsetPercent: 40 }
+        });
+        [0, 10, 40].forEach((distance) => {
+            renderGauge(`gauge-compact-distance-${distance}`, .47, {
+                percentageLabel: { verticalOffsetPercent: distance }
+            });
+        });
+        renderGauge("gauge-50", .50);
+        renderGauge("gauge-5001", .5001);
+        renderGauge("gauge-80", .80);
+        renderGauge("gauge-8001", .8001);
+        renderGauge("gauge-90", .90);
+        renderGauge("gauge-9001", .9001);
+        renderGauge("gauge-100", 1);
+        renderGauge("gauge-rounded-100", .99995, {}, {
+            actual: 19999,
+            target: 20000,
+            actualFormat: "0"
+        });
+        renderGauge("gauge-125", 1.25);
+        renderGauge("gauge-456", 4.56);
+        renderGauge("gauge-456-small", 4.56);
+        renderGauge("gauge-small", .19);
+        renderGauge("gauge-80-small", .80);
+        renderGauge("gauge-fixed", .65, {
+            colorBehavior: {
+                mode: "fixed",
+                fixedColor: { solid: { color: "#7C3AED" } }
+            },
+            valueLabel: {
+                useGaugeColor: false,
+                color: { solid: { color: "#0F172A" } }
+            }
+        });
+        function rangeValueObjects() {
+            return {
+                valueLabel: {
+                    useRangeColors: true,
+                    zeroValueColor: { solid: { color: "#2563EB" } },
+                    lowValueColor: { solid: { color: "#DC2626" } },
+                    mediumValueColor: { solid: { color: "#000000" } },
+                    highValueColor: { solid: { color: "#000000" } },
+                    targetValueColor: { solid: { color: "#16A34A" } }
+                }
+            };
+        }
+        renderGauge("gauge-value-low", .30, rangeValueObjects());
+        renderGauge("gauge-value-medium", .65, rangeValueObjects());
+        renderGauge("gauge-value-high", .85, rangeValueObjects());
+        renderGauge("gauge-value-target", .95, rangeValueObjects());
+        renderGauge("gauge-image", .19, {
+            iconSettings: {
+                customIconDataUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6ZQAAAABJRU5ErkJggg=="
+            }
+        });
+        renderGauge("gauge-scaled", .5, {}, {
+            actual: 5000000,
+            target: 10000000,
+            actualFormat: "#,0,, \"M\";(#,0,, \"M\")",
+            targetFormat: "#,0,, \"M\";(#,0,, \"M\")"
+        });
+        renderGauge("gauge-format-empty", .38, {}, {
+            actual: 11630290,
+            target: 30606026.315789474,
+            actualFormat: ""
+        });
+        renderGauge("gauge-format-general", .38, {}, {
+            actual: 11630290,
+            target: 30606026.315789474,
+            actualFormat: "General"
+        });
+        renderGauge("gauge-format-plain", .38, {}, {
+            actual: 11630290,
+            target: 30606026.315789474,
+            actualFormat: "R$ 0"
+        });
+        renderGauge("gauge-format-decimal", .38, {
+            valueLabel: { decimalPlaces: 2 }
+        }, {
+            actual: 11630290.5,
+            target: 30606027.631578948,
+            actualFormat: "R$ 0.00"
+        });
+        renderGauge("gauge-format-fixed-standard", .38, {}, {
+            actual: 11630290,
+            target: 30606026.315789474,
+            actualFormat: "F0"
+        });
+        renderGauge("gauge-format-general-standard", .38, {}, {
+            actual: 11630290,
+            target: 30606026.315789474,
+            actualFormat: "G3"
+        });
+        renderGauge("gauge-format-service-ungrouped", .38, {}, {
+            actual: 11630290,
+            target: 30606026.315789474,
+            actualFormat: "D0"
+        });
+        renderGauge("gauge-format-literal-semicolon", .38, {}, {
+            actual: 11630290,
+            target: 30606026.315789474,
+            actualFormat: "\"R$;\" 0;(\"R$;\" 0);-"
+        });
+        renderGauge("gauge-format-negative-group", 0, {
+            valueLabel: { decimalPlaces: 2 }
+        }, {
+            actual: -11630290.5,
+            target: 10000000,
+            actualFormat: "R$ 0.00;(R$ 0.00);-"
+        });
+        renderGauge("gauge-format-auto-units", .38, {
+            valueLabel: { displayUnits: "auto" }
+        }, {
+            actual: 11630290,
+            target: 30606026.315789474,
+            actualFormat: "R$ 0"
+        });
+        renderGauge("gauge-format-thousand-units", .38, {
+            valueLabel: { displayUnits: "thousands" }
+        }, {
+            actual: 11630290,
+            target: 30606026.315789474,
+            actualFormat: "R$ 0"
+        });
+        renderGauge("gauge-format-million-units", .38, {
+            valueLabel: { displayUnits: "millions" }
+        }, {
+            actual: 11630290,
+            target: 30606026.315789474,
+            actualFormat: "R$ 0"
+        });
+        renderGauge("gauge-format-legacy-zero-units", .38, {
+            valueLabel: { displayUnits: 0 }
+        }, {
+            actual: 11630290,
+            target: 30606026.315789474,
+            actualFormat: "D0"
+        });
+        renderGauge("gauge-target-threshold-edge", .9, {
+            colorBehavior: { targetThreshold: .9 }
+        }, {
+            actual: 9000,
+            target: 10000,
+            actualFormat: "R$ #,0"
+        });
+        renderGauge("gauge-target-threshold-dot", .899, {
+            colorBehavior: { targetThreshold: .9 }
+        }, {
+            actual: 8990,
+            target: 10000,
+            actualFormat: "R$ #,0"
+        });
+        renderGauge("gauge-track-symmetry", 0, {
+            colorBehavior: {
+                mode: "fixed",
+                fixedColor: { solid: { color: "#64748B" } }
+            }
+        }, {
+            actual: null,
+            target: 10000,
+            actualFormat: "R$ #,0"
+        });
+        renderGauge("gauge-percent-format", .19, {}, {
+            actual: .19,
+            target: 1,
+            actualFormat: "0%",
+            targetFormat: "0%"
+        });
+        renderGauge("gauge-negative", 0, {}, {
+            actual: -5000000,
+            target: 10000000,
+            actualFormat: "#,0,, \"M\";(#,0,, \"M\")",
+            targetFormat: "#,0,, \"M\";(#,0,, \"M\")"
+        });
+    </script>
+</body>
+</html>

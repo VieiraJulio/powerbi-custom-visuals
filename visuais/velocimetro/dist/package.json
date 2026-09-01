@@ -1,0 +1,17 @@
+{
+		"version": "1.0.0.27",
+		"author": {"name":"Keven Henrique","email":"Kevenaraujo386@gmail.com"},
+		"resources": [
+			{
+				"resourceId": "rId0",
+				"sourceType": 5,
+				"file": "resources/velocimetro0BBCD8D8C8D1450D88AABEC4EFC5D619.pbiviz.json"
+			}
+		],
+		"visual": {"name":"velocimetro","displayName":"Velocímetro","guid":"velocimetro0BBCD8D8C8D1450D88AABEC4EFC5D619","visualClassName":"Visual","version":"1.0.0.27","description":"Velocímetro de faturamento versus meta com cores e ícone configuráveis.","supportUrl":"https://github.com/kevenhenrique","gitHubUrl":"https://github.com/kevenhenrique"},
+		"metadata": {
+			"pbivizjson": {
+				"resourceId": "rId0"
+			}
+		}
+	}

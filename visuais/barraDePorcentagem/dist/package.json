@@ -1,0 +1,17 @@
+{
+		"version": "1.0.0.0",
+		"author": {"name":"Keven Henrique","email":"Kevenaraujo386@gmail.com"},
+		"resources": [
+			{
+				"resourceId": "rId0",
+				"sourceType": 5,
+				"file": "resources/barraDePorcentagemDCC394FDAC284A44B6F4D5B34991AF4B.pbiviz.json"
+			}
+		],
+		"visual": {"name":"barraDePorcentagem","displayName":"BarraDePorcentagem","guid":"barraDePorcentagemDCC394FDAC284A44B6F4D5B34991AF4B","visualClassName":"Visual","version":"1.0.0.0","description":"Barra de porcentagem deneb","supportUrl":"https://github.com/kevenhenrique","gitHubUrl":"https://github.com/kevenhenrique"},
+		"metadata": {
+			"pbivizjson": {
+				"resourceId": "rId0"
+			}
+		}
+	}

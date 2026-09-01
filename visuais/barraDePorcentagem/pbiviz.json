@@ -1,0 +1,26 @@
+{
+  "visual": {
+    "name": "barraDePorcentagem",
+    "displayName": "BarraDePorcentagem",
+    "guid": "barraDePorcentagemDCC394FDAC284A44B6F4D5B34991AF4B",
+    "visualClassName": "Visual",
+    "version": "1.0.0.0",
+    "description": "Barra de porcentagem deneb",
+    "supportUrl": "https://github.com/kevenhenrique",
+    "gitHubUrl": "https://github.com/kevenhenrique"
+  },
+  "apiVersion": "5.11.1",
+  "author": {
+    "name": "Keven Henrique",
+    "email": "Kevenaraujo386@gmail.com"
+  },
+  "assets": {
+    "icon": "assets/icon.png"
+  },
+  "externalJS": null,
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "dependencies": null,
+  "stringResources": [],
+  "version": "1.0.0.0"
+}

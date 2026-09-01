@@ -1,0 +1,62 @@
+MAPVISUAL — VERSÃO 1.0.0.12
+
+RECURSOS INCLUÍDOS
+
+1. FORMATAÇÃO DAS BOLHAS
+- Cor da bolha.
+- Transparência.
+- Cor e espessura da borda.
+- Exibição e cor da borda de seleção.
+- Raio mínimo e máximo.
+- Exibição ou ocultação do indicador de quantidade.
+
+2. ÍCONE PERSONALIZADO
+- Ícone padrão de trator.
+- Botão compacto de configurações dentro do visual em modo de edição.
+- Ao clicar na engrenagem, aparece a ação "Importar PNG".
+- A engrenagem fica oculta no modo de leitura; somente usuários com permissão para editar o relatório podem importar imagens.
+- Tamanho e opacidade do ícone na aba Formatar visual.
+- O PNG é redimensionado para até 128 px e persistido no relatório.
+- Limite do arquivo original: 5 MB.
+- O botão de configurações pode ser ocultado na aba de formatação.
+
+3. DICAS DE FERRAMENTA
+- Tooltips nativos do Power BI ao passar o mouse sobre a bolha.
+- As dicas de ferramenta podem ser ativadas ou desativadas; a quantidade pode ser incluída ou ocultada.
+- Até 20 campos ou medidas podem ser adicionados em "Dicas de ferramenta".
+- Valores repetidos, como chassis, são agrupados e listados uma única vez.
+- Suporte a páginas de tooltip do Power BI.
+
+4. INTERAÇÃO COM OUTROS VISUAIS
+- Clique em uma bolha para selecionar sua cidade ou seu estado e atualizar cards, gráficos e tabelas relacionados.
+- Use Ctrl+clique (ou Cmd+clique no macOS) para selecionar mais de uma bolha.
+- Clique em uma área vazia do mapa para limpar a seleção.
+- Em "Editar interações" no Power BI, o autor do relatório escolhe se cada visual de destino será filtrado ou realçado.
+- A propagação da seleção depende dos relacionamentos ativos do modelo de dados.
+
+COMO GERAR O VISUAL NO CMD
+
+1. Abra o CMD na pasta que contém pbiviz.json.
+2. Execute:
+
+npm install
+rmdir /s /q .tmp
+rmdir /s /q dist
+pbiviz package
+
+Se .tmp ou dist não existirem, a mensagem de arquivo não encontrado pode ser ignorada.
+O pacote será criado na pasta dist e deverá terminar em 1.0.0.12.pbiviz.
+
+COMO USAR
+
+- Localização: cidade, cliente, fazenda ou outro identificador.
+- Latitude: coluna numérica sem resumo.
+- Longitude: coluna numérica sem resumo.
+- Tamanho: medida numérica que controla a bolha.
+- Dicas de ferramenta: chassis, responsável, filial e outras informações.
+
+Para listar chassis, você pode arrastar a coluna Chassi diretamente para Dicas de ferramenta. O visual consolida valores únicos de linhas que tenham a mesma localização e coordenadas. Uma medida CONCATENATEX também continua sendo compatível.
+
+OBSERVAÇÃO DE SEGURANÇA
+
+O token público do Mapbox permanece no visual.ts porque já fazia parte do projeto original. Para distribuição externa, crie um token específico, restrinja os domínios e evite reutilizar o token principal da conta.

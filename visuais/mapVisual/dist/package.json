@@ -1,0 +1,17 @@
+{
+		"version": "1.0.0.12",
+		"author": {"name":"Keven Henrique","email":"kevenaraujo386@gmail.com"},
+		"resources": [
+			{
+				"resourceId": "rId0",
+				"sourceType": 5,
+				"file": "resources/mapVisual2EB2FCA8547B4845A3D56E871780B26B.pbiviz.json"
+			}
+		],
+		"visual": {"name":"mapVisual","displayName":"MapVisual","guid":"mapVisual2EB2FCA8547B4845A3D56E871780B26B","visualClassName":"Visual","version":"1.0.0.12","description":"Visual personalizado de mapa com bolhas, ícones e tooltips.","supportUrl":"mailto:kevenaraujo386@gmail.com","gitHubUrl":"https://github.com/KevenHenrique"},
+		"metadata": {
+			"pbivizjson": {
+				"resourceId": "rId0"
+			}
+		}
+	}

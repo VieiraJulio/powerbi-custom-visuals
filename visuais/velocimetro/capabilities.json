@@ -1,0 +1,471 @@
+{
+    "privileges": [],
+    "supportsEmptyDataView": true,
+    "tooltips": {
+        "supportedTypes": {
+            "default": true
+        },
+        "roles": [
+            "tooltip"
+        ]
+    },
+    "dataRoles": [
+        {
+            "displayName": "Faturamento",
+            "name": "actual",
+            "kind": "Measure",
+            "description": "Valor realizado exibido no centro do velocímetro.",
+            "requiredTypes": [
+                {
+                    "numeric": true
+                },
+                {
+                    "integer": true
+                }
+            ]
+        },
+        {
+            "displayName": "Meta (opcional)",
+            "name": "target",
+            "kind": "Measure",
+            "description": "Medida opcional que representa 100% do velocímetro.",
+            "requiredTypes": [
+                {
+                    "numeric": true
+                },
+                {
+                    "integer": true
+                }
+            ]
+        },
+        {
+            "displayName": "Dica de ferramenta",
+            "name": "tooltip",
+            "kind": "Measure",
+            "description": "Medidas adicionais exibidas na dica de ferramenta."
+        }
+    ],
+    "objects": {
+        "gaugeStyle": {
+            "displayName": "Velocímetro",
+            "properties": {
+                "thicknessPercent": {
+                    "displayName": "Espessura (% do raio)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "segmentGapDegrees": {
+                    "displayName": "Espaço entre faixas (graus)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "trackOpacity": {
+                    "displayName": "Opacidade do fundo (%)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "showMarker": {
+                    "displayName": "Mostrar marcador",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "markerColor": {
+                    "displayName": "Cor do marcador",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "markerSizePercent": {
+                    "displayName": "Tamanho do marcador (%)",
+                    "type": {
+                        "numeric": true
+                    }
+                }
+            }
+        },
+        "colorBehavior": {
+            "displayName": "Cores",
+            "properties": {
+                "mode": {
+                    "displayName": "Modo da barra",
+                    "type": {
+                        "enumeration": []
+                    }
+                },
+                "fixedColor": {
+                    "displayName": "Cor da barra",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "zeroColor": {
+                    "displayName": "Cor para zero",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "lowThreshold": {
+                    "displayName": "Valor até o primeiro limite",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "lowColor": {
+                    "displayName": "Cor até o primeiro limite",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "mediumThreshold": {
+                    "displayName": "Valor limite segunda faixa",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "mediumColor": {
+                    "displayName": "Cor segundo limite",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "highColor": {
+                    "displayName": "Cor antes da meta",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "beforeTargetThreshold": {
+                    "displayName": "Valor antes da meta",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "targetColor": {
+                    "displayName": "Cor da meta",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "targetThreshold": {
+                    "displayName": "Valor da meta",
+                    "type": {
+                        "numeric": true
+                    }
+                }
+            }
+        },
+        "valueLabel": {
+            "displayName": "Valor central",
+            "properties": {
+                "show": {
+                    "displayName": "Mostrar valor",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "useGaugeColor": {
+                    "displayName": "Acompanhar cor da barra",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "useRangeColors": {
+                    "displayName": "Personalizar cor por faixa",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "color": {
+                    "displayName": "Cor personalizada",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "zeroValueColor": {
+                    "displayName": "Cor do valor em zero",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "lowValueColor": {
+                    "displayName": "Cor do valor na primeira faixa",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "mediumValueColor": {
+                    "displayName": "Cor do valor na segunda faixa",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "highValueColor": {
+                    "displayName": "Cor do valor antes da meta",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "targetValueColor": {
+                    "displayName": "Cor do valor na meta",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "fontFamily": {
+                    "displayName": "Fonte",
+                    "type": {
+                        "formatting": {
+                            "fontFamily": true
+                        }
+                    }
+                },
+                "fontSize": {
+                    "displayName": "Tamanho do texto",
+                    "type": {
+                        "formatting": {
+                            "fontSize": true
+                        }
+                    }
+                },
+                "bold": {
+                    "displayName": "Negrito",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "displayUnits": {
+                    "displayName": "Unidades de exibição",
+                    "type": {
+                        "enumeration": []
+                    }
+                },
+                "decimalPlaces": {
+                    "displayName": "Casas decimais",
+                    "type": {
+                        "integer": true
+                    }
+                },
+                "verticalOffsetPercent": {
+                    "displayName": "Posição vertical (%)",
+                    "type": {
+                        "numeric": true
+                    }
+                }
+            }
+        },
+        "percentageLabel": {
+            "displayName": "Percentual",
+            "properties": {
+                "show": {
+                    "displayName": "Mostrar percentual",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "color": {
+                    "displayName": "Cor do texto",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "fontFamily": {
+                    "displayName": "Fonte",
+                    "type": {
+                        "formatting": {
+                            "fontFamily": true
+                        }
+                    }
+                },
+                "fontSize": {
+                    "displayName": "Tamanho do texto",
+                    "type": {
+                        "formatting": {
+                            "fontSize": true
+                        }
+                    }
+                },
+                "bold": {
+                    "displayName": "Negrito",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "decimalPlaces": {
+                    "displayName": "Casas decimais",
+                    "type": {
+                        "integer": true
+                    }
+                },
+                "verticalOffsetPercent": {
+                    "displayName": "Distância do arco (px)",
+                    "type": {
+                        "numeric": true
+                    }
+                }
+            }
+        },
+        "iconSettings": {
+            "displayName": "Ícone",
+            "properties": {
+                "show": {
+                    "displayName": "Mostrar ícone",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showIconControls": {
+                    "displayName": "Mostrar botão de upload",
+                    "description": "Exibe uma engrenagem para importar um PNG durante a edição do relatório.",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "defaultIconColor": {
+                    "displayName": "Cor do ícone padrão",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "sizePercent": {
+                    "displayName": "Tamanho (% do raio)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "verticalOffsetPercent": {
+                    "displayName": "Posição vertical (%)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "opacity": {
+                    "displayName": "Opacidade (%)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "customIconDataUrl": {
+                    "displayName": "PNG personalizado",
+                    "description": "Imagem PNG redimensionada e persistida pelo visual.",
+                    "type": {
+                        "text": true
+                    }
+                }
+            }
+        },
+        "tooltipSettings": {
+            "displayName": "Dica de ferramenta",
+            "properties": {
+                "show": {
+                    "displayName": "Mostrar",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
+        }
+    },
+    "dataViewMappings": [
+        {
+            "conditions": [
+                {
+                    "actual": {
+                        "min": 1,
+                        "max": 1
+                    },
+                    "target": {
+                        "max": 1
+                    },
+                    "tooltip": {
+                        "max": 20
+                    }
+                }
+            ],
+            "categorical": {
+                "values": {
+                    "select": [
+                        {
+                            "bind": {
+                                "to": "actual"
+                            }
+                        },
+                        {
+                            "bind": {
+                                "to": "target"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "tooltip"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,306 @@
+{
+  "privileges": [],
+
+  "dataRoles": [
+    {
+      "displayName": "Percentual",
+      "name": "percentual",
+      "kind": "Measure",
+      "description": "Valor percentual do indicador. Exemplo: 0,20 representa 20%.",
+      "requiredTypes": [
+        {
+          "numeric": true
+        },
+        {
+          "integer": true
+        }
+      ]
+    },
+    {
+      "displayName": "Meta (opcional)",
+      "name": "meta",
+      "kind": "Measure",
+      "description": "Meta opcional. Quando preenchida, define o valor equivalente a 100% da barra.",
+      "requiredTypes": [
+        {
+          "numeric": true
+        },
+        {
+          "integer": true
+        }
+      ]
+    },
+    {
+      "displayName": "Dica de ferramenta",
+      "name": "tooltip",
+      "kind": "GroupingOrMeasure",
+      "description": "Campos adicionais exibidos na dica de ferramenta."
+    }
+  ],
+
+  "objects": {
+    "barStyle": {
+      "displayName": "Barra",
+      "properties": {
+        "backgroundColor": {
+          "displayName": "Cor de fundo",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+        "barHeight": {
+          "displayName": "Altura",
+          "type": {
+            "integer": true
+          }
+        },
+        "barWidthPercent": {
+          "displayName": "Comprimento da barra (%)",
+          "type": {
+            "integer": true
+          }
+        },
+        "cornerRadius": {
+          "displayName": "Arredondamento",
+          "type": {
+            "integer": true
+          }
+        }
+      }
+    },
+
+    "dataLabel": {
+      "displayName": "Rótulo",
+      "properties": {
+        "show": {
+          "displayName": "Exibir",
+          "type": {
+            "bool": true
+          }
+        },
+        "useBarColor": {
+          "displayName": "Usar cor da barra",
+          "type": {
+            "bool": true
+          }
+        },
+        "color": {
+          "displayName": "Cor do texto",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+        "fontSize": {
+          "displayName": "Tamanho do texto",
+          "type": {
+            "formatting": {
+              "fontSize": true
+            }
+          }
+        },
+        "decimalPlaces": {
+          "displayName": "Casas decimais",
+          "type": {
+            "integer": true
+          }
+        }
+      }
+    },
+
+    "tooltipSettings": {
+      "displayName": "Dica de ferramenta",
+      "properties": {
+        "show": {
+          "displayName": "Exibir",
+          "type": {
+            "bool": true
+          }
+        }
+      }
+    },
+
+    "colorBehavior": {
+      "displayName": "Comportamento de cor",
+      "properties": {
+        "mode": {
+          "displayName": "Modo",
+          "type": {
+            "enumeration": []
+          }
+        },
+
+        "fixedColor": {
+          "displayName": "Cor fixa",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+
+        "belowTargetColor": {
+          "displayName": "Cor abaixo da meta",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+
+        "reachedTargetColor": {
+          "displayName": "Cor da meta atingida",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+
+        "badValue": {
+          "displayName": "Valor",
+          "type": {
+            "numeric": true
+          }
+        },
+
+        "badColor": {
+          "displayName": "Cor",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+
+        "lowValue": {
+          "displayName": "Valor",
+          "type": {
+            "numeric": true
+          }
+        },
+
+        "lowColor": {
+          "displayName": "Cor",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+
+        "intermediateValue": {
+          "displayName": "Valor",
+          "type": {
+            "numeric": true
+          }
+        },
+
+        "intermediateColor": {
+          "displayName": "Cor",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+
+        "highValue": {
+          "displayName": "Valor",
+          "type": {
+            "numeric": true
+          }
+        },
+
+        "highColor": {
+          "displayName": "Cor",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+
+        "targetValue": {
+          "displayName": "Valor",
+          "type": {
+            "numeric": true
+          }
+        },
+
+        "targetColor": {
+          "displayName": "Cor",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "dataViewMappings": [
+    {
+      "conditions": [
+        {
+          "percentual": {
+            "min": 1,
+            "max": 1
+          },
+          "meta": {
+            "max": 1
+          },
+          "tooltip": {
+            "max": 20
+          }
+        }
+      ],
+
+      "categorical": {
+        "values": {
+          "select": [
+            {
+              "bind": {
+                "to": "percentual"
+              }
+            },
+            {
+              "bind": {
+                "to": "meta"
+              }
+            },
+            {
+              "for": {
+                "in": "tooltip"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "visual": {
+    "name": "mapVisual",
+    "displayName": "MapVisual",
+    "guid": "mapVisual2EB2FCA8547B4845A3D56E871780B26B",
+    "visualClassName": "Visual",
+    "version": "1.0.0.12",
+    "description": "Visual personalizado de mapa com bolhas, ícones e tooltips.",
+    "supportUrl": "mailto:kevenaraujo386@gmail.com",
+    "gitHubUrl": "https://github.com/KevenHenrique"
+  },
+  "apiVersion": "5.11.1",
+  "author": {
+    "name": "Keven Henrique",
+    "email": "kevenaraujo386@gmail.com"
+  },
+  "assets": {
+    "icon": "assets/icon.png"
+  },
+  "externalJS": null,
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "dependencies": null,
+  "stringResources": [],
+  "version": "1.0.0.12"
+} 

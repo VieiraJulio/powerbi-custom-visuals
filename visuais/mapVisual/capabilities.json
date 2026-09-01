@@ -1,0 +1,324 @@
+{
+    "privileges": [
+        {
+            "name": "WebAccess",
+            "essential": true,
+            "parameters": [
+                "https://tile.openstreetmap.org",
+                "https://api.mapbox.com"
+            ]
+        }
+    ],
+    "dataRoles": [
+        {
+            "name": "state",
+            "displayName": "Estado",
+            "description": "Estado utilizado no nível agregado do mapa.",
+            "kind": "Grouping"
+        },
+        {
+            "name": "city",
+            "displayName": "Cidade",
+            "description": "Cidade exibida quando o usuário aproxima o mapa.",
+            "kind": "Grouping"
+        },
+        {
+            "name": "latitude",
+            "displayName": "Latitude",
+            "description": "Latitude decimal da cidade.",
+            "kind": "Grouping",
+            "requiredTypes": [
+                {
+                    "numeric": true
+                }
+            ]
+        },
+        {
+            "name": "longitude",
+            "displayName": "Longitude",
+            "description": "Longitude decimal da cidade.",
+            "kind": "Grouping",
+            "requiredTypes": [
+                {
+                    "numeric": true
+                }
+            ]
+        },
+        {
+            "name": "size",
+            "displayName": "Tamanho",
+            "description": "Medida numérica somada por cidade e por estado.",
+            "kind": "Measure",
+            "requiredTypes": [
+                {
+                    "numeric": true
+                }
+            ]
+        },
+        {
+            "name": "label",
+            "displayName": "Rótulo da cidade",
+            "description": "Rótulo opcional usado no nível de cidade. Quando vazio, o nome da cidade é exibido.",
+            "kind": "GroupingOrMeasure"
+        },
+        {
+            "name": "tooltips",
+            "displayName": "Dicas de ferramenta",
+            "description": "Campos adicionais exibidos ao passar o mouse sobre uma bolha.",
+            "kind": "GroupingOrMeasure"
+        }
+    ],
+    "objects": {
+        "bubble": {
+            "displayName": "Bolhas",
+            "properties": {
+                "bubbleColor": {
+                    "displayName": "Cor da bolha",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "bubbleOpacity": {
+                    "displayName": "Transparência (%)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "borderColor": {
+                    "displayName": "Cor da borda",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "borderWidth": {
+                    "displayName": "Espessura da borda",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "showSelectionOutline": {
+                    "displayName": "Mostrar borda de seleção",
+                    "description": "Exibe um contorno ao selecionar uma bolha.",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "selectionOutlineColor": {
+                    "displayName": "Cor da borda de seleção",
+                    "description": "Define a cor do contorno exibido na bolha selecionada.",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "minimumRadius": {
+                    "displayName": "Raio mínimo",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "maximumRadius": {
+                    "displayName": "Raio máximo",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "showValue": {
+                    "displayName": "Mostrar quantidade",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
+        },
+        "iconSettings": {
+            "displayName": "Ícone",
+            "properties": {
+                "showIcon": {
+                    "displayName": "Mostrar ícone",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showIconControls": {
+                    "displayName": "Mostrar botão de configurações",
+                    "description": "Exibe uma engrenagem para importar um PNG somente durante a edição do relatório. Leitores não têm acesso.",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "iconSize": {
+                    "displayName": "Tamanho do ícone (%)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "iconOpacity": {
+                    "displayName": "Opacidade do ícone (%)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "customIconDataUrl": {
+                    "displayName": "PNG personalizado",
+                    "description": "Imagem PNG redimensionada e persistida pelo visual.",
+                    "type": {
+                        "text": true
+                    }
+                }
+            }
+        },
+        "mapLevels": {
+            "displayName": "Níveis do mapa",
+            "properties": {
+                "enableAutoLevels": {
+                    "displayName": "Alternar Estado/Cidade pelo zoom",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "cityZoomThreshold": {
+                    "displayName": "Zoom para mostrar cidades",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "transitionDuration": {
+                    "displayName": "Duração da transição (ms)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "showStateLabel": {
+                    "displayName": "Mostrar nome do estado",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showCityLabel": {
+                    "displayName": "Mostrar nome da cidade",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
+        },
+        "tooltipSettings": {
+            "displayName": "Dicas de ferramenta",
+            "properties": {
+                "enableTooltip": {
+                    "displayName": "Ativar dicas de ferramenta",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "includeQuantity": {
+                    "displayName": "Incluir quantidade",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
+        }
+    },
+    "dataViewMappings": [
+        {
+            "conditions": [
+                {
+                    "state": {
+                        "max": 1
+                    },
+                    "city": {
+                        "max": 1
+                    },
+                    "latitude": {
+                        "max": 1
+                    },
+                    "longitude": {
+                        "max": 1
+                    },
+                    "size": {
+                        "max": 1
+                    },
+                    "label": {
+                        "max": 1
+                    },
+                    "tooltips": {
+                        "max": 20
+                    }
+                }
+            ],
+            "table": {
+                "rows": {
+                    "select": [
+                        {
+                            "for": {
+                                "in": "state"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "city"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "latitude"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "longitude"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "size"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "label"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "tooltips"
+                            }
+                        }
+                    ],
+                    "dataReductionAlgorithm": {
+                        "top": {
+                            "count": 30000
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "supportsHighlight": true,
+    "supportsKeyboardFocus": true,
+    "tooltips": {
+        "supportedTypes": {
+            "default": true,
+            "canvas": true
+        },
+        "roles": [
+            "tooltips"
+        ],
+        "supportEnhancedTooltips": true
+    },
+    "supportsEmptyDataView": true,
+    "supportsLandingPage": true
+}

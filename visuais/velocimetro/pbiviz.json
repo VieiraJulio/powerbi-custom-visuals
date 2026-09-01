@@ -1,0 +1,26 @@
+{
+  "visual": {
+    "name": "velocimetro",
+    "displayName": "Velocímetro",
+    "guid": "velocimetro0BBCD8D8C8D1450D88AABEC4EFC5D619",
+    "visualClassName": "Visual",
+    "version": "1.0.0.27",
+    "description": "Velocímetro de faturamento versus meta com cores e ícone configuráveis.",
+    "supportUrl": "https://github.com/kevenhenrique",
+    "gitHubUrl": "https://github.com/kevenhenrique"
+  },
+  "apiVersion": "5.11.1",
+  "author": {
+    "name": "Keven Henrique",
+    "email": "Kevenaraujo386@gmail.com"
+  },
+  "assets": {
+    "icon": "assets/icon.png"
+  },
+  "externalJS": null,
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "dependencies": null,
+  "stringResources": [],
+  "version": "1.0.0.27"
+}

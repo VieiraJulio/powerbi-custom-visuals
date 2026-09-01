@@ -1,0 +1,30 @@
+{
+  "name": "visual",
+  "description": "Visual personalizado de mapa para Power BI",
+  "version": "1.0.0.12",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KevenHenrique"
+  },
+  "license": "MIT",
+  "scripts": {
+    "pbiviz": "pbiviz",
+    "start": "pbiviz start",
+    "package": "pbiviz package",
+    "lint": "npx eslint ."
+  },
+  "dependencies": {
+    "@types/d3": "7.4.3",
+    "d3": "7.9.0",
+    "maplibre-gl": "^6.1.0",
+    "powerbi-visuals-api": "~5.11.1",
+    "powerbi-visuals-utils-formattingmodel": "6.0.4"
+  },
+  "devDependencies": {
+    "@types/geojson": "^7946.0.16",
+    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "eslint": "^9.11.1",
+    "eslint-plugin-powerbi-visuals": "^1.0.0",
+    "typescript": "5.5.4"
+  }
+}

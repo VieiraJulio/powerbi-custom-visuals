@@ -1,0 +1,38 @@
+@import (less) "../node_modules/maplibre-gl/dist/maplibre-gl.css";
+
+/*
+ * O visual.ts aplica os estilos críticos diretamente nos elementos.
+ * Este arquivo fica como suporte para os controles nativos do MapLibre
+ * e para futuras opções de formatação.
+ */
+.maplibregl-map {
+    width: 100%;
+    height: 100%;
+}
+
+.map-visual-icon-settings-button,
+.map-visual-icon-action-button {
+    &:hover:not(:disabled) {
+        background: #f3f4f6 !important;
+    }
+
+    &:focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: 2px;
+    }
+}
+
+.map-visual-marker:focus-visible {
+    outline: 3px solid #111827;
+    outline-offset: 3px;
+}
+
+@media (forced-colors: active) {
+    .map-visual-icon-settings-button,
+    .map-visual-icon-action-button,
+    .map-visual-marker {
+        border-color: ButtonText !important;
+        color: ButtonText !important;
+        forced-color-adjust: auto;
+    }
+}
