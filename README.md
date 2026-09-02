@@ -25,10 +25,6 @@ docs/
 └── mapVisual/
 ```
 
-O nome da pasta em `docs/` é sempre igual ao nome interno do visual em `visuais/`
-(o campo `visual.name` do `pbiviz.json`). Isso mantém documentação e código
-alinhados e evita links quebrados por acento ou diferença de grafia.
-
 ## Estrutura de cada página
 
 Toda página segue a mesma ordem, do uso para o detalhe técnico:
