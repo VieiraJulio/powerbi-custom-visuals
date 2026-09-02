@@ -1,0 +1,20 @@
+# Dependências
+node_modules/
+
+# Artefatos de build do pbiviz
+.tmp/
+webpack.statistics.dev.html
+webpack.statistics.prod.html
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
+
+# Logs
+npm-debug.log*
+*.log

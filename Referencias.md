@@ -142,4 +142,4 @@ consideradas antes da decisão de construir visuais próprios.
 
 ---
 
-**[⟵ Voltar ao README](README.md)** · **[Autoria e licença](AUTORIA.md)** · **[Documentação dos visuais](docs/README.md)**
+**[⟵ Voltar ao README](README.md)** · **[Autoria e licença](Autoria.md)** · **[Documentação dos visuais](docs/README.md)**

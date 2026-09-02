@@ -157,4 +157,4 @@ mesmos termos da Apache-2.0, conforme a seção 5 da licença.
 
 ---
 
-**[⟵ Voltar ao README](README.md)** · **[Referências](REFERENCIAS.md)** · **[Documentação dos visuais](docs/README.md)**
+**[⟵ Voltar ao README](README.md)** · **[Referências](Referencias.md)** · **[Documentação dos visuais](docs/README.md)**

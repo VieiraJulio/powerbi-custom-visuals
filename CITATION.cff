@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+title: Visuais Personalizados para Power BI
+message: >-
+  Se este repositório for utilizado em um trabalho, por favor cite-o
+  conforme os metadados abaixo.
+type: software
+authors:
+  - given-names: Julio
+    family-names: Vieira
+    alias: VieiraJulio
+  - given-names: Keven
+    family-names: Cardoso
+    alias: KevenHenrique
+abstract: >-
+  Acervo de visuais personalizados (.pbiviz) para o Microsoft Power BI,
+  desenvolvidos para atender a requisitos analíticos não cobertos pelas
+  visualizações nativas. Inclui código-fonte em TypeScript, pacotes
+  compilados e documentação técnica de cada componente.
+keywords:
+  - power-bi
+  - custom-visuals
+  - pbiviz
+  - typescript
+  - vega-lite
+  - data-visualization
+repository-code: https://github.com/VieiraJulio/powerbi-custom-visuals
+license: Apache-2.0
+date-released: '2026-09-02'

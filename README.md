@@ -17,6 +17,8 @@
 ![Licença](https://img.shields.io/badge/Licença-Apache%202.0-D22128?style=flat-square)
 ![Visuais](https://img.shields.io/badge/visuais-3-informational?style=flat-square)
 
+**[Documentação dos visuais](docs/README.md)** · **[Referências](Referencias.md)** · **[Autoria e licença](Autoria.md)**
+
 </div>
 
 ---
@@ -33,6 +35,9 @@
 8. [Convenções do projeto](#8-convenções-do-projeto)
 9. [Limitações e considerações](#9-limitações-e-considerações)
 10. [Trabalhos futuros](#10-trabalhos-futuros)
+11. [Referências](#11-referências)
+12. [Autoria e licença](#12-autoria-e-licença)
+
 ---
 
 ## 1. Apresentação
@@ -94,7 +99,7 @@ nativas, priorizando a reutilização entre relatórios e a configuração sem c
 |:---:|---|---|:---:|:---:|:---:|:---:|
 | <img src="visuais/barraDePorcentagem/assets/icon.png" width="32" alt=""> | **Barra de Porcentagem** | Barra de progresso para percentual de atingimento, com trilho de comprimento fixo e cor definida por meta ou por cinco faixas configuráveis | Vega-Lite | `1.0.0.0` | [Abrir](docs/barraDePorcentagem/README.md) | [`.pbiviz`](visuais/barraDePorcentagem/dist/) |
 | <img src="visuais/velocimetro/assets/icon.png" width="32" alt=""> | **Velocímetro** | Indicador radial de realizado versus meta, com faixas de desempenho, valor central formatado e ícone personalizável | SVG nativo | `1.0.0.27` | [Abrir](docs/velocimetro/README.md) | [`.pbiviz`](visuais/velocimetro/dist/) |
-| <img src="visuais/mapVisual/assets/icon.png" width="32" alt=""> | **Map Visual** | Mapa com bolhas proporcionais, agregação progressiva por estado e cidade, seleção cruzada e tooltips enriquecidos | MapLibre GL | `1.0.0.12` | [Abrir](docs/mapVisual/README.md) | [`.pbiviz`](visuais/mapVisual/dist/) |
+| <img src="visuais/mapVisual/assets/icon.png" width="32" alt=""> | **Map Visual** | Mapa com bolhas proporcionais, agregação progressiva por estado e cidade, seleção cruzada e tooltips enriquecidos | MapLibre GL | `1.0.0.12` | [Abrir](docs/MapVisual/README.md) | [`.pbiviz`](visuais/mapVisual/dist/) |
 
 A documentação completa de cada visual — campos aceitos, regra de cálculo, painel
 de formatação, receitas de uso, limitações e solução de problemas — está em
@@ -204,8 +209,6 @@ powerbi-custom-visuals/
 │
 ├── LICENSE
 └── README.md
-└── Referencias.md
-└── Autoria.md
 ```
 
 Cada pasta em `docs/` recebe o mesmo nome da pasta correspondente em `visuais/`,
@@ -346,3 +349,21 @@ como item da seção seguinte.
 - [ ] Avaliação da submissão ao processo de certificação da Microsoft
 
 ---
+
+## 11. Referências
+
+As fontes consultadas no desenvolvimento — documentação normativa da plataforma,
+ferramental, bibliotecas de renderização, padrões web e obras de fundamentação em
+visualização de dados — estão reunidas em **[`Referencias.md`](Referencias.md)**,
+no padrão ABNT NBR 6023.
+
+---
+
+## 12. Autoria e licença
+
+Desenvolvido por **Julio Vieira** e **Keven Cardoso**, sob licença
+[Apache-2.0](LICENSE).
+
+A atribuição detalhada, as formas de citação (ABNT e BibTeX), as licenças das
+bibliotecas de terceiros incorporadas aos pacotes, o aviso de marcas registradas
+e as orientações para contribuição estão em **[`Autoria.md`](Autoria.md)**.
