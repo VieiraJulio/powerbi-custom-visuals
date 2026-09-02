@@ -21,7 +21,7 @@ Cada visual tem uma pasta própria, com o texto e as imagens no mesmo lugar.
 | | Visual | Para que serve | Versão | Documentação | Download |
 |:---:|---|---|:---:|:---:|:---:|
 | <img src="../visuais/barraDePorcentagem/assets/icon.png" width="32" alt=""> | **Barra de Porcentagem** | Barra de progresso para percentual de atingimento, com cor por meta ou por faixas | `1.0.0.0` | [Abrir](barraDePorcentagem/README.md) | [`.pbiviz`](../visuais/barraDePorcentagem/dist/) |
-| <img src="../visuais/velocimetro/assets/icon.png" width="32" alt=""> | **Velocímetro** | Velocímetro de realizado versus meta, com faixas de desempenho e ícone configurável | `1.0.0.27` | [Abrir](velocimetro/README.md) | [`.pbiviz`](../visuais/velocimetro/dist/) |
+| <img src="../visuais/velocimetro/assets/icon.png" width="32" alt=""> | **Velocímetro** | Velocímetro de realizado versus meta, com faixas de desempenho e ícone configurável | `1.0.0.32` | [Abrir](velocimetro/README.md) | [`.pbiviz`](../visuais/velocimetro/dist/) |
 | <img src="../visuais/mapVisual/assets/icon.png" width="32" alt=""> | **Map Visual** | Mapa com bolhas proporcionais por estado e cidade, com seleção cruzada | `1.0.0.12` | [Abrir](MapVisual/README.md) | [`.pbiviz`](../visuais/mapVisual/dist/) |
 
 ---

@@ -98,7 +98,7 @@ nativas, priorizando a reutilização entre relatórios e a configuração sem c
 | | Visual | Descrição | Renderização | Versão | Documentação | Download |
 |:---:|---|---|:---:|:---:|:---:|:---:|
 | <img src="visuais/barraDePorcentagem/assets/icon.png" width="32" alt=""> | **Barra de Porcentagem** | Barra de progresso para percentual de atingimento, com trilho de comprimento fixo e cor definida por meta ou por cinco faixas configuráveis | Vega-Lite | `1.0.0.0` | [Abrir](docs/barraDePorcentagem/README.md) | [`.pbiviz`](visuais/barraDePorcentagem/dist/) |
-| <img src="visuais/velocimetro/assets/icon.png" width="32" alt=""> | **Velocímetro** | Indicador radial de realizado versus meta, com faixas de desempenho, valor central formatado e ícone personalizável | SVG nativo | `1.0.0.27` | [Abrir](docs/velocimetro/README.md) | [`.pbiviz`](visuais/velocimetro/dist/) |
+| <img src="visuais/velocimetro/assets/icon.png" width="32" alt=""> | **Velocímetro** | Indicador radial de realizado versus meta, com faixas de desempenho, valor central formatado e ícone personalizável | SVG nativo | `1.0.0.32` | [Abrir](docs/velocimetro/README.md) | [`.pbiviz`](visuais/velocimetro/dist/) |
 | <img src="visuais/mapVisual/assets/icon.png" width="32" alt=""> | **Map Visual** | Mapa com bolhas proporcionais, agregação progressiva por estado e cidade, seleção cruzada e tooltips enriquecidos | MapLibre GL | `1.0.0.12` | [Abrir](docs/MapVisual/README.md) | [`.pbiviz`](visuais/mapVisual/dist/) |
 
 A documentação completa de cada visual — campos aceitos, regra de cálculo, painel
