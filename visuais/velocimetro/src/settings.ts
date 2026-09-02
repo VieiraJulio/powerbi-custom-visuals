@@ -301,6 +301,33 @@ class ValueLabelSettings extends formattingSettings.SimpleCard {
         54
     );
 
+    public letterSpacing = new formattingSettings.NumUpDown({
+        name: "letterSpacing",
+        displayName: "Espaçamento entre caracteres (px)",
+        value: 0,
+        visible: false,
+        options: {
+            minValue: {
+                type: powerbi.visuals.ValidatorType.Min,
+                value: -5
+            },
+            maxValue: {
+                type: powerbi.visuals.ValidatorType.Max,
+                value: 20
+            }
+        }
+    });
+
+    public letterSpacingDecimal = new formattingSettings.TextInput({
+        name: "letterSpacingDecimal",
+        displayName: "Espaçamento entre caracteres (px)",
+        description: "Aceita valores decimais com vírgula ou ponto. Use fx para vincular uma medida DAX que retorne o espaçamento em px.",
+        value: "",
+        placeholder: "Ex.: 0,5",
+        selector: undefined,
+        instanceKind: powerbi.VisualEnumerationInstanceKinds.ConstantOrRule
+    });
+
     public bold = new formattingSettings.ToggleSwitch({
         name: "bold",
         displayName: "Negrito",
@@ -342,6 +369,8 @@ class ValueLabelSettings extends formattingSettings.SimpleCard {
         this.targetValueColor,
         this.fontFamily,
         this.fontSize,
+        this.letterSpacing,
+        this.letterSpacingDecimal,
         this.bold,
         this.displayUnits,
         this.decimalPlaces,

@@ -283,6 +283,18 @@
                         }
                     }
                 },
+                "letterSpacing": {
+                    "displayName": "Espaçamento entre caracteres (px)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "letterSpacingDecimal": {
+                    "displayName": "Espaçamento entre caracteres (px)",
+                    "type": {
+                        "text": true
+                    }
+                },
                 "bold": {
                     "displayName": "Negrito",
                     "type": {

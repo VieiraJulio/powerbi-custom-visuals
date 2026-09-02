@@ -103,6 +103,10 @@
             <div id="gauge-deneb-value" class="visual comparison"></div>
         </section>
         <section class="card">
+            <h2>32% — referência sem espaçamento</h2>
+            <div id="gauge-deneb-value-spacing-zero" class="visual comparison"></div>
+        </section>
+        <section class="card">
             <h2>50% — fidelidade ao Deneb em 340 × 244</h2>
             <div id="gauge-deneb-fidelity" class="visual deneb-reference"></div>
         </section>
@@ -321,7 +325,7 @@
     </main>
 
     <script>window.powerbi = { visuals: { plugins: {} } };</script>
-    <script src="../.tmp/drop/visual.js?v=27-blank-embedded-format"></script>
+    <script src="../.tmp/drop/visual.js?v=30-effective-letter-spacing"></script>
     <script>
         const guid = "velocimetro0BBCD8D8C8D1450D88AABEC4EFC5D619";
         const plugin = window.powerbi.visuals.plugins[guid];
@@ -444,7 +448,14 @@
             target: 10000
         });
         renderGauge("gauge-19", .19);
-        renderGauge("gauge-deneb-value", .32, {}, {
+        renderGauge("gauge-deneb-value", .32, {
+            valueLabel: { letterSpacingDecimal: "2,5" }
+        }, {
+            actual: 6744016,
+            target: 21075050,
+            actualFormat: "R$ #,0"
+        });
+        renderGauge("gauge-deneb-value-spacing-zero", .32, {}, {
             actual: 6744016,
             target: 21075050,
             actualFormat: "R$ #,0"

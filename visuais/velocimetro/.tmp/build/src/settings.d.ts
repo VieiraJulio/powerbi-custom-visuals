@@ -40,11 +40,13 @@ declare class ValueLabelSettings extends formattingSettings.SimpleCard {
     targetValueColor: formattingSettings.ColorPicker;
     fontFamily: formattingSettings.FontPicker;
     fontSize: formattingSettings.NumUpDown;
+    letterSpacing: formattingSettings.NumUpDown;
+    letterSpacingDecimal: formattingSettings.TextInput;
     bold: formattingSettings.ToggleSwitch;
     displayUnits: formattingSettings.ItemDropdown;
     decimalPlaces: formattingSettings.NumUpDown;
     verticalOffsetPercent: formattingSettings.NumUpDown;
-    slices: (formattingSettings.ToggleSwitch | formattingSettings.ColorPicker | formattingSettings.NumUpDown | formattingSettings.FontPicker | formattingSettings.ItemDropdown)[];
+    slices: (formattingSettings.ToggleSwitch | formattingSettings.ColorPicker | formattingSettings.NumUpDown | formattingSettings.TextInput | formattingSettings.FontPicker | formattingSettings.ItemDropdown)[];
 }
 declare class PercentageLabelSettings extends formattingSettings.SimpleCard {
     name: string;

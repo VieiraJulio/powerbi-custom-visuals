@@ -978,7 +978,40 @@ export class Visual implements IVisual {
             6,
             Math.min(requestedSize, outerRadius * 0.32)
         );
-        const estimatedWidth = Math.max(1, text.length) * fontSize * 0.53;
+        const decimalLetterSpacingText = String(
+            settings.letterSpacingDecimal.value ?? ""
+        ).trim();
+        const normalizedLetterSpacing =
+            /^[-+]?(?:\d+(?:[.,]\d*)?|[.,]\d+)$/.test(
+                decimalLetterSpacingText
+            )
+                ? decimalLetterSpacingText.replace(",", ".")
+                : "";
+        const decimalLetterSpacing = Number(normalizedLetterSpacing);
+        const configuredLetterSpacing =
+            normalizedLetterSpacing.length > 0 &&
+            Number.isFinite(decimalLetterSpacing)
+                ? decimalLetterSpacing
+                : this.numberValue(settings.letterSpacing.value, 0);
+        const letterSpacing = this.clamp(
+            configuredLetterSpacing,
+            -5,
+            20
+        );
+        const letterSpacingWidth = Math.max(0, text.length - 1) *
+            letterSpacing;
+        const maximumTextWidthWithSpacing = Math.max(
+            1,
+            Math.min(
+                viewportWidth - 8,
+                maximumTextWidth + letterSpacingWidth
+            )
+        );
+        const estimatedWidth = Math.max(
+            1,
+            Math.max(1, text.length) * fontSize * 0.53 +
+                letterSpacingWidth
+        );
         const verticalOffset = outerRadius * this.clamp(
             this.numberValue(settings.verticalOffsetPercent.value, 0),
             -50,
@@ -997,6 +1030,7 @@ export class Visual implements IVisual {
         label.style.fontFamily = settings.fontFamily.value || "Segoe UI";
         label.style.fontSize = `${fontSize}px`;
         label.style.fontWeight = settings.bold.value ? "700" : "400";
+        label.setAttribute("letter-spacing", `${letterSpacing}px`);
         label.classList.add("gauge-value-label");
         this.svgElement.appendChild(label);
         const renderedWidth = label.getComputedTextLength();
@@ -1004,11 +1038,14 @@ export class Visual implements IVisual {
             renderedWidth > 0
             ? renderedWidth
             : estimatedWidth;
-        if (effectiveWidth > maximumTextWidth) {
-            label.setAttribute("textLength", maximumTextWidth.toFixed(3));
+        if (effectiveWidth > maximumTextWidthWithSpacing) {
+            label.setAttribute(
+                "textLength",
+                maximumTextWidthWithSpacing.toFixed(3)
+            );
             label.setAttribute(
                 "lengthAdjust",
-                maximumTextWidth / effectiveWidth >= 0.75
+                maximumTextWidthWithSpacing / effectiveWidth >= 0.75
                     ? "spacing"
                     : "spacingAndGlyphs"
             );
@@ -1551,14 +1588,19 @@ export class Visual implements IVisual {
     }
 
     private formatPercentage(value: number, decimalPlaces: number): string {
-        const formatter = new Intl.NumberFormat(
-            this.host.locale || "pt-BR",
-            {
-                minimumFractionDigits: decimalPlaces,
-                maximumFractionDigits: decimalPlaces
-            }
+        const precision = Math.round(this.clamp(decimalPlaces, 0, 12));
+        const percentageValue = value * 100;
+        const percentageFormat = "#,0" + (precision > 0
+            ? `.${"0".repeat(precision)}`
+            : "");
+        const formattedValue = this.formatMeasureValue(
+            percentageValue,
+            percentageFormat,
+            precision,
+            "none",
+            VALUE_FORMAT_LOCALE
         );
-        return `${formatter.format(value * 100)}%`;
+        return `${formattedValue}%`;
     }
 
     private formatMeasureValue(
