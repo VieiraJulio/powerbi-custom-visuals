@@ -15,12 +15,12 @@ Cada visual tem uma pasta própria, com o texto e as imagens no mesmo lugar.
 
 ```text
 docs/
-├── README.md                     <- Este índice.
+├── README.md                    
 ├── _template/
-│   └── README.md                 <- Modelo a copiar quando um visual novo entrar.
+│   └── README.md                 
 ├── barraDePorcentagem/
-│   ├── README.md                 <- Documentação do visual.
-│   └── img/                      <- Imagens usadas somente nessa página.
+│   ├── README.md                
+│   └── img/                   
 ├── velocimetro/
 └── mapVisual/
 ```
