@@ -33,9 +33,6 @@
 8. [Convenções do projeto](#8-convenções-do-projeto)
 9. [Limitações e considerações](#9-limitações-e-considerações)
 10. [Trabalhos futuros](#10-trabalhos-futuros)
-11. [Referências](#11-referências)
-12. [Autoria e licença](#12-autoria-e-licença)
-
 ---
 
 ## 1. Apresentação
@@ -207,6 +204,8 @@ powerbi-custom-visuals/
 │
 ├── LICENSE
 └── README.md
+└── Referencias.md
+└── Autoria.md
 ```
 
 Cada pasta em `docs/` recebe o mesmo nome da pasta correspondente em `visuais/`,
@@ -347,34 +346,3 @@ como item da seção seguinte.
 - [ ] Avaliação da submissão ao processo de certificação da Microsoft
 
 ---
-
-## 11. Referências
-
-**Documentação oficial**
-
-- Microsoft. *Power BI visuals — Developer documentation.* Disponível em: <https://learn.microsoft.com/power-bi/developer/visuals/>
-- Microsoft. *Capabilities and properties of Power BI visuals.* Disponível em: <https://learn.microsoft.com/power-bi/developer/visuals/capabilities>
-- Microsoft. *Understand data view mapping in Power BI visuals.* Disponível em: <https://learn.microsoft.com/power-bi/developer/visuals/dataview-mappings>
-- Microsoft. *Format pane in Power BI visuals.* Disponível em: <https://learn.microsoft.com/power-bi/developer/visuals/format-pane>
-- Microsoft. *Get a Power BI visual certified.* Disponível em: <https://learn.microsoft.com/power-bi/developer/visuals/power-bi-custom-visuals-certified>
-
-**Ferramentas e bibliotecas**
-
-- Microsoft. *PowerBI-visuals-tools.* Disponível em: <https://github.com/microsoft/PowerBI-visuals-tools>
-- SATYANARAYAN, A. et al. *Vega-Lite: A Grammar of Interactive Graphics.* IEEE Transactions on Visualization and Computer Graphics, v. 23, n. 1, p. 341-350, 2017. Disponível em: <https://vega.github.io/vega-lite/>
-- MapLibre. *MapLibre GL JS Documentation.* Disponível em: <https://maplibre.org/maplibre-gl-js/docs/>
-- Microsoft. *TypeScript Documentation.* Disponível em: <https://www.typescriptlang.org/docs/>
-
----
-
-## 12. Autoria e licença
-
-Desenvolvido por **Julio Vieira** e **Keven Cardoso**.
-
-Distribuído sob a licença [Apache-2.0](LICENSE). O uso, a modificação e a
-redistribuição são permitidos nos termos da licença, mantida a atribuição de
-autoria e o aviso de licença original.
-
-Contribuições, relatos de comportamento inesperado e sugestões de novos visuais
-podem ser encaminhados pela aba
-[Issues](https://github.com/VieiraJulio/powerbi-custom-visuals/issues) do repositório.
