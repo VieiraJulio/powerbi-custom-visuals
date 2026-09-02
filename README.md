@@ -1,5 +1,7 @@
 # Documentação dos visuais
 
+![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
+
 Documentação de uso e referência técnica dos visuais personalizados deste repositório.
 Cada visual tem uma pasta própria, com o texto e as imagens no mesmo lugar.
 
