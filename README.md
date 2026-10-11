@@ -301,8 +301,8 @@ localmente, e cada alteração salva é refletida no relatório sem reimportaç�
 
 > [!NOTE]
 > O **Map Visual** precisa de um token do Mapbox para exibir o fundo do mapa. O
-> token nunca é versionado: ele vem de um arquivo `.env.local` ou do secret
-> `MAPBOX_ACCESS_TOKEN` no GitHub. Veja a
+> código traz `seu_token` no lugar do token: troque só na sua cópia local e
+> nunca faça commit. Na Release, o GitHub usa o secret `MAPBOX_ACCESS_TOKEN`. Veja a
 > [documentação técnica do Map Visual](visuais/mapVisual/README.md#6-token-do-mapbox).
 
 ### 7.3 Integração contínua

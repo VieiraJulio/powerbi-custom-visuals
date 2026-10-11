@@ -34,8 +34,9 @@ O que cada um pode acessar está declarado em `capabilities.json`:
 Pontos de atenção:
 
 - **Token do Mapbox.** O Map Visual usa um token *público* (`pk.…`), que fica
-  dentro do pacote `.pbiviz` publicado. Ele nunca é versionado no código-fonte:
-  entra no build pelo secret `MAPBOX_ACCESS_TOKEN`. O token deve ter apenas os
+  dentro do pacote `.pbiviz` publicado. O código-fonte traz só o marcador
+  `seu_token`; o token real entra no build pelo secret `MAPBOX_ACCESS_TOKEN`, e o
+  CI falha se encontrar um token em `src/`. O token deve ter apenas os
   escopos públicos de leitura de estilos e tiles, ser monitorado no painel do
   Mapbox e ser rotacionado se houver uso indevido.
 - **O que sai do Power BI.** As requisições de tiles revelam ao Mapbox a região

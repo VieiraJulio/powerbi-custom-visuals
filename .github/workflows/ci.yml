@@ -35,6 +35,13 @@ jobs:
           cache: npm
           cache-dependency-path: visuais/${{ matrix.visual }}/package-lock.json
 
+      - name: Garantir que nenhum token foi commitado
+        run: |
+          if grep -rnE "pk\.[A-Za-z0-9._-]{20,}" src; then
+            echo "::error::Há um token do Mapbox no código. Volte o valor para seu_token antes do commit."
+            exit 1
+          fi
+
       - name: Instalar dependências
         run: npm ci
 
@@ -47,8 +54,8 @@ jobs:
       - name: Verificação de tipos
         run: npm run typecheck
 
-      # No CI o Map Visual é empacotado SEM token: o objetivo aqui é só
-      # garantir que compila. O token entra apenas no workflow de release.
+      # No CI o Map Visual é empacotado com seu_token: o objetivo aqui é só
+      # garantir que compila. O token real entra apenas no workflow de release.
       - name: Empacotar
         run: npm run package
 

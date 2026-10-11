@@ -9,12 +9,6 @@ dist/
 webpack.statistics.dev.html
 webpack.statistics.prod.html
 
-# Configuração local e segredos (token do Mapbox do Map Visual)
-.env
-.env.local
-.env.*.local
-visuais/mapVisual/src/mapboxConfig.generated.ts
-
 # Sistema operacional
 .DS_Store
 Thumbs.db

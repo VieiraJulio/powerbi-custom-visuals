@@ -275,7 +275,7 @@ as tabelas dos outros visuais.
 |---|---|---|
 | Bolhas aparecem, mas o fundo do mapa fica vazio | O fundo não veio do Mapbox: rede bloqueada ou token do pacote revogado. | Verifique o acesso a `https://api.mapbox.com` e atualize para o pacote mais recente das Releases. |
 | `Adicione Estado, Cidade, Latitude e Longitude.` | Falta um dos quatro campos, ou todas as linhas têm coordenadas inválidas. | Preencha os quatro campos e confira se Latitude e Longitude são numéricas e estão dentro dos limites. |
-| `Pacote gerado sem token do Mapbox. Consulte a documentação de desenvolvimento.` | O `.pbiviz` foi compilado sem token. | Use o pacote publicado nas Releases ou peça a quem gerou o pacote que siga a [documentação técnica](../../visuais/mapVisual/README.md#6-token-do-mapbox). |
+| `Token do Mapbox não configurado: troque seu_token em src/visual.ts.` | O `.pbiviz` foi compilado sem token. | Use o pacote publicado nas Releases ou peça a quem gerou o pacote que siga a [documentação técnica](../../visuais/mapVisual/README.md#6-token-do-mapbox). |
 | `O mapa não pôde ser inicializado.` | O navegador ou o Desktop não conseguiu criar o mapa (por exemplo, WebGL desativado). | Atualize o Power BI Desktop ou teste no Service; persistindo, [abra uma issue](https://github.com/VieiraJulio/powerbi-custom-visuals/issues/new/choose). |
 | Bolhas no oceano ou em outro país | Latitude e Longitude trocadas, ou importadas como texto com separador errado. | Confira a ordem dos campos e o tipo de dado das colunas. |
 | A mesma cidade aparece em duas bolhas | Grafias diferentes do nome ou do estado. | Padronize os nomes na dimensão de cidades. |

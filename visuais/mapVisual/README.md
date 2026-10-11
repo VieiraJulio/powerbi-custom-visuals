@@ -25,7 +25,6 @@
 | Marcadores | `src/visual.ts` | Elementos DOM sobre o mapa: bolha, ícone, quantidade, rótulo e contorno de seleção |
 | Interação | `src/visual.ts` | Clique, Ctrl/Cmd+clique, Enter, Espaço, clique no fundo, tooltip e sincronização com seleções externas |
 | Persistência | `iconSettings.customIconDataUrl` | PNG processado localmente e salvo no relatório |
-| Build | `scripts/write-mapbox-config.mjs` | Gera `src/mapboxConfig.generated.ts` com token, conta e estilo do Mapbox |
 
 ```text
 Power BI entrega uma tabela de até 30.000 linhas
@@ -95,15 +94,11 @@ a leitura do código:
 ```text
 mapVisual/
 ├── assets/icon.png
-├── scripts/
-│   └── write-mapbox-config.mjs   <- Gera a configuração do Mapbox antes do build
 ├── src/
-│   ├── mapboxConfig.generated.ts <- GERADO, fora do git
 │   ├── settings.ts
 │   ├── styles.d.ts
-│   └── visual.ts
+│   └── visual.ts                 <- Token do Mapbox: seu_token (ver seção 6)
 ├── style/visual.less             <- CSS do MapLibre, foco visível e forced colors
-├── .env.example                  <- Modelo do .env.local
 ├── capabilities.json
 ├── CHANGELOG.md
 ├── eslint.config.mjs
@@ -136,56 +131,52 @@ o 5.5.4 fixado pelo projeto.
 
 ## 6. Token do Mapbox
 
-O token **nunca** fica no código-fonte. Antes de `npm run start`,
-`npm run package` e `npm run typecheck`, o script
-`scripts/write-mapbox-config.mjs` gera `src/mapboxConfig.generated.ts` (fora do
-git) a partir de, nesta ordem:
+O código no repositório traz só um marcador no lugar do token, em
+`src/visual.ts`:
 
-1. variáveis de ambiente `MAPBOX_ACCESS_TOKEN`, `MAPBOX_USERNAME` e
-   `MAPBOX_STYLE_ID`;
-2. o arquivo `.env.local` na pasta do visual (também fora do git);
-3. valores padrão — sem token, com a conta e o estilo atuais.
-
-**Na sua máquina:**
-
-```bash
-cd visuais/mapVisual
-cp .env.example .env.local      # no PowerShell: Copy-Item .env.example .env.local
-# edite .env.local e preencha MAPBOX_ACCESS_TOKEN=pk....
-npm run package
+```typescript
+const MAPBOX_ACCESS_TOKEN: string =
+    "seu_token";
 ```
 
-**No GitHub:** cadastre o token em *Settings > Secrets and variables > Actions*
-com o nome `MAPBOX_ACCESS_TOKEN`. O workflow de release injeta o secret no build;
-o CI de pull requests compila **sem** token, só para validar.
+**Para gerar o pacote na sua máquina:**
 
-Regras para o token:
+1. Troque `seu_token` pelo seu token público do Mapbox (`pk.…`).
+2. Rode `npm run package`.
+3. Volte o valor para `seu_token` antes de fazer commit.
 
-- Use um token **público** (`pk.…`) criado só para este visual, com os escopos
-  públicos de leitura de estilos e tiles — nunca o token padrão da conta.
-- O token precisa pertencer à **mesma conta dona do estilo** (`MAPBOX_USERNAME`).
-- O token acaba dentro do `.pbiviz` publicado e pode ser extraído dele. Monitore
-  o uso no painel do Mapbox e rotacione quando necessário.
-- Ao rotacionar, publique uma versão nova do visual **antes** de revogar o token
-  antigo: relatórios com pacotes antigos perdem o fundo do mapa no momento da
-  revogação.
+> [!CAUTION]
+> Nunca faça commit do token. O CI falha se encontrar um token do Mapbox em
+> `src/`.
 
-Sem token, o visual compila normalmente e exibe
-`Pacote gerado sem token do Mapbox. Consulte a documentação de desenvolvimento.`
+**Na Release:** cadastre o token em *Settings > Secrets and variables > Actions*
+com o nome `MAPBOX_ACCESS_TOKEN`. O workflow de release troca `seu_token` pelo
+secret só durante o build, sem alterar o repositório.
+
+Cuidados com o token:
+
+- Use um token **público** criado só para este visual, com os escopos públicos de
+  leitura de estilos e tiles — nunca o token padrão da conta.
+- O token precisa pertencer à **mesma conta dona do estilo**
+  (`MAPBOX_USERNAME`, em `src/visual.ts`).
+- O token fica dentro do `.pbiviz` publicado e pode ser extraído dele. Monitore o
+  uso no painel do Mapbox.
+- Ao trocar de token, publique a versão nova do visual **antes** de revogar o
+  antigo: relatórios com pacotes antigos perdem o fundo do mapa na revogação.
+
+Com `seu_token` no código, o visual compila normalmente e exibe
+`Token do Mapbox não configurado: troque seu_token em src/visual.ts.`
 
 ## 7. Desenvolvimento
 
 ```bash
 cd visuais/mapVisual
 npm ci
-npm run start        # gera a config do Mapbox e sobe o servidor do Visual de Desenvolvedor
+npm run start        # servidor local para o Visual de Desenvolvedor
 npm run lint
-npm run typecheck    # gera a config do Mapbox e roda tsc --noEmit
-npm run package      # gera a config do Mapbox e o .pbiviz em dist/
+npm run typecheck    # tsc --noEmit
+npm run package      # gera o .pbiviz em dist/
 ```
-
-Sempre use `npm run package`, e não `pbiviz package` direto: o script `prepackage`
-é que gera `src/mapboxConfig.generated.ts`.
 
 Ambiente validado: Node.js 24.18.0, npm 11.16.0, Power BI Visuals Tools 7.2.1.
 

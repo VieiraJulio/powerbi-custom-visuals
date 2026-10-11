@@ -14,9 +14,8 @@ semântica descrita no [README do repositório](../../README.md#8-convenções-d
 
 ### Alterado
 
-- O token, a conta e o estilo do Mapbox passam a ser injetados no build
-  (`.env.local` ou secret `MAPBOX_ACCESS_TOKEN`) por
-  `scripts/write-mapbox-config.mjs`, e nunca ficam no código-fonte.
+- O token do Mapbox no código passa a ser o marcador `seu_token`. Na Release, o
+  GitHub Actions troca o marcador pelo secret `MAPBOX_ACCESS_TOKEN`.
 - Nova mensagem quando o pacote é gerado sem token.
 - Nome exibido no Power BI passa a ser **Map Visual** (antes `MapVisual`).
 - Links de suporte e de código do `pbiviz.json` apontam para este repositório.

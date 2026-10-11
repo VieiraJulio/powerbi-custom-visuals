@@ -97,8 +97,8 @@ Estas regras protegem quem já usa os visuais em relatórios publicados:
   campos pelo `name`; mudar só o `displayName` é seguro.
 - **Não renomeie propriedades de formatação existentes.** A configuração salva
   nos relatórios se perde.
-- **Nunca versione segredos.** O token do Mapbox vive em `.env.local` (local) ou
-  no secret `MAPBOX_ACCESS_TOKEN` (CI). Veja
+- **Nunca versione segredos.** No Map Visual, o código fica com `seu_token`; o
+  token real só existe na sua cópia local e no secret `MAPBOX_ACCESS_TOKEN`. Veja
   [`visuais/mapVisual/README.md`](visuais/mapVisual/README.md).
 - **Não adicione privilégios** (`WebAccess`, `LocalStorage`, etc.) sem discutir
   em issue: eles mudam o perfil de segurança do visual e impedem a certificação.
