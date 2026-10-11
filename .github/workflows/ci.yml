@@ -1,0 +1,63 @@
+name: CI
+
+# Valida os três visuais a cada push na main e em todo pull request:
+# instalação reproduzível, lint, verificação de tipos e empacotamento.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: ${{ matrix.visual }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        visual: [barraDePorcentagem, velocimetro, mapVisual]
+    defaults:
+      run:
+        working-directory: visuais/${{ matrix.visual }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: visuais/${{ matrix.visual }}/package-lock.json
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Instalar Power BI Visuals Tools
+        run: npm install --global powerbi-visuals-tools@7.2.1
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Verificação de tipos
+        run: npm run typecheck
+
+      # No CI o Map Visual é empacotado SEM token: o objetivo aqui é só
+      # garantir que compila. O token entra apenas no workflow de release.
+      - name: Empacotar
+        run: npm run package
+
+      - name: Auditoria de dependências (não bloqueante)
+        continue-on-error: true
+        run: npm audit --omit=dev --audit-level=moderate
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.visual }}-pbiviz
+          path: visuais/${{ matrix.visual }}/dist/*.pbiviz
+          retention-days: 14

@@ -272,7 +272,7 @@ export class Visual implements IVisual {
             ) {
                 this.currentData = null;
                 this.showMessage(
-                    "Adicione uma medida ao campo Faturamento."
+                    "Adicione uma medida ao campo Valor realizado."
                 );
                 this.events.renderingFinished(options);
                 return;
@@ -288,7 +288,7 @@ export class Visual implements IVisual {
             );
 
             if (actual !== null && !Number.isFinite(actual)) {
-                throw new Error("O Faturamento possui um valor inválido.");
+                throw new Error("A medida de Valor realizado retornou um valor inválido.");
             }
 
             const hasActual = actual !== null && Number.isFinite(actual);
@@ -321,7 +321,7 @@ export class Visual implements IVisual {
                 hasTarget,
                 ratio,
                 gaugeRatio,
-                actualName: actualColumn?.source.displayName || "Faturamento",
+                actualName: actualColumn?.source.displayName || "Valor realizado",
                 targetName: targetColumn?.source.displayName || "Meta",
                 actualFormat: actualColumn?.source.format || "",
                 targetFormat: targetColumn?.source.format || "",
@@ -1457,7 +1457,7 @@ export class Visual implements IVisual {
         const targetColumn = this.getRoleColumns(dataView, "target")[0];
         const items: VisualTooltipDataItem[] = [
             {
-                displayName: actualColumn?.source.displayName || "Faturamento",
+                displayName: actualColumn?.source.displayName || "Valor realizado",
                 value: actual === null
                     ? "(Em branco)"
                     : this.formatMeasureValue(

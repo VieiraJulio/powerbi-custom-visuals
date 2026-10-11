@@ -12,6 +12,13 @@ import {
 import {
     VisualFormattingSettingsModel
 } from "./settings";
+// Gerado por scripts/write-mapbox-config.mjs antes de start/package/typecheck.
+// O arquivo fica fora do git: o token nunca entra no código-fonte.
+import {
+    MAPBOX_ACCESS_TOKEN,
+    MAPBOX_STYLE_ID,
+    MAPBOX_USERNAME
+} from "./mapboxConfig.generated";
 
 import VisualConstructorOptions =
     powerbi.extensibility.visual.VisualConstructorOptions;
@@ -60,18 +67,6 @@ const MAX_ICON_DATA_URL_LENGTH:
 
 const ICON_FEEDBACK_DURATION:
     number = 4000;
-
-const MAPBOX_USERNAME: string =
-    "kevenaraujo";
-
-const MAPBOX_STYLE_ID: string =
-    "cmqz9pcw7000401s12tom7zb1";
-
-/*
- * MANTENHA AQUI O TOKEN DO MAPA 
- */
-const MAPBOX_ACCESS_TOKEN: string =
-    /*"COLOQUE AQUI SEU TOKEN DA API";*/
 
 const MAPBOX_TILE_URL: string =
     `https://api.mapbox.com/styles/v1/` +
@@ -583,12 +578,10 @@ export class Visual implements IVisual {
 
     private initializeMap(): void {
         if (
-            !MAPBOX_ACCESS_TOKEN ||
-            MAPBOX_ACCESS_TOKEN ===
-                "COLE_SEU_TOKEN_ATUAL_AQUI"
+            !MAPBOX_ACCESS_TOKEN
         ) {
             this.showStatus(
-                "Informe o token público do Mapbox no visual.ts.",
+                "Pacote gerado sem token do Mapbox. Consulte a documentação de desenvolvimento.",
                 true
             );
 

@@ -1,382 +1,300 @@
+<div align="center">
+
+<img src="../../visuais/mapVisual/assets/icon.png" width="72" alt="">
+
 # Map Visual
 
-## 1. Objetivos do projeto
+![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat-square&logo=powerbi&logoColor=black)
+![Versão](https://img.shields.io/badge/versão-1.0.0.12-blue?style=flat-square)
+![API](https://img.shields.io/badge/API-5.11.1-6E4B9E?style=flat-square)
+![MapLibre](https://img.shields.io/badge/MapLibre%20GL-6.1-396CB2?style=flat-square)
 
-1. Representar a distribuição geográfica de indicadores do Power BI em um mapa navegável com bolhas proporcionais.
-2. Oferecer leitura progressiva: Estados em zoom amplo e Cidades quando o usuário aproxima o mapa.
-3. Agregar linhas repetidas por localidade sem exigir uma preparação visual adicional no relatório.
-4. Permitir que o clique em uma bolha filtre ou realce outros visuais por meio das identidades de seleção do Power BI.
-5. Disponibilizar tooltips com localização, quantidade e até 20 campos adicionais.
-6. Permitir personalização de cores, bordas, raios, rótulos, níveis, transição e ícone.
-7. Manter o pacote `.pbiviz` reproduzível e registrar limitações, dependências externas, segurança e pontos de evolução.
+**Mapa de bolhas proporcionais que mostra Estados no zoom amplo e Cidades ao aproximar, com seleção cruzada e tooltips detalhados.**
 
-## 2. Arquitetura atual
+<!-- IMAGEM: mapa com bolhas por estado, dados fictícios, controles de zoom visíveis. Salvar como img/01-visao-geral.png. -->
+<!-- ![Mapa com bolhas laranja proporcionais sobre os estados do Brasil](img/01-visao-geral.png) — descomente quando a imagem existir -->
 
-A arquitetura é composta por:
+</div>
 
-1. **Power BI Host:** fornece viewport, `DataView`, modo de exibição, serviço de tooltip, SelectionManager, persistência de propriedades e painel de formatação.
-2. **Contrato do visual:** `capabilities.json` declara papéis, cardinalidades, mapeamento tabular, redução de dados, privilégios web, tooltips e recursos suportados.
-3. **Camada de configuração:** `src/settings.ts` declara quatro cartões e os valores padrão do painel Formatar.
-4. **Camada de dados:** `src/visual.ts` valida linhas, agrupa Cidade + Estado, soma Tamanho, calcula centros ponderados, deduplica rótulos/tooltips e cria identidades de seleção.
-5. **Camada cartográfica:** MapLibre GL projeta o mapa; um estilo raster Mapbox fornece o fundo.
-6. **Camada visual:** marcadores DOM posicionados sobre o mapa desenham bolha, ícone, quantidade, rótulo e contorno de seleção.
-7. **Camada de interação:** clique, Ctrl/Cmd+clique, Enter, Espaço, clique no fundo, tooltip e sincronização de seleções externas.
-8. **Camada de persistência:** um PNG processado localmente é salvo em `iconSettings.customIconDataUrl` dentro do relatório.
+| | |
+|---|---|
+| **Nome interno** | `mapVisual` |
+| **Nome exibido** | `Map Visual` |
+| **Versão** | `1.0.0.12` |
+| **API do Power BI** | `5.11.1` |
+| **Renderização** | MapLibre GL com marcadores HTML |
+| **Privilégios externos** | `WebAccess` — carrega o fundo do mapa do Mapbox |
+| **Download** | [Releases do Map Visual](https://github.com/VieiraJulio/powerbi-custom-visuals/releases?q=mapVisual&expanded=true) |
+| **Documentação técnica** | [`visuais/mapVisual`](../../visuais/mapVisual/README.md) |
+| **Autores** | Julio Vieira e Keven Cardoso |
 
-```
-Usuário configura os campos e filtros
-  ↓
-Power BI entrega uma tabela de até 30.000 linhas
-  ↓
-MapVisual valida Estado, Cidade e coordenadas
-  ↓
-Linhas válidas são agregadas por Cidade + Estado
-  ↓
-Estados são derivados das cidades e centros ponderados
-  ↓
-Raio é calculado separadamente para cada nível
-  ↓
-MapLibre projeta as coordenadas
-  ↓
-Marcadores DOM exibem bolha, ícone, valor e rótulo
-  ↓
-Zoom alterna Estado/Cidade; seleção e tooltip usam o host
-```
+---
 
-## 3. Tecnologias Usadas
+## Sumário
 
-- **Node.js 24.18.0** e **npm 11.16.0:** ambiente usado na validação de 28/08/2026.
-- **TypeScript 5.5.4:** linguagem e compilador fixado.
-- **Power BI Visuals API 5.11.1:** API declarada no projeto.
-- **Power BI Visuals Tools 7.2.1:** ferramenta global usada no empacotamento.
-- **MapLibre GL 6.1.0:** navegação, zoom, controles e projeção.
-- **powerbi-visuals-utils-formattingmodel 6.0.4:** painel moderno de formatação.
-- **ESLint 9.39.5** e **eslint-plugin-powerbi-visuals 1.1.1:** análise estática instalada.
-- **D3 7.9.0** e **@types/d3 7.4.3:** declarados, mas não importados pelo código atual.
-- **Licença:** MIT.
+1. [O que é e quando usar](#1-o-que-é-e-quando-usar)
+2. [Instalação no Power BI](#2-instalação-no-power-bi)
+3. [Campos](#3-campos)
+4. [Regra de cálculo](#4-regra-de-cálculo)
+5. [Painel de formatação](#5-painel-de-formatação)
+6. [Receitas](#6-receitas)
+7. [Limitações conhecidas](#7-limitações-conhecidas)
+8. [Solução de problemas](#8-solução-de-problemas)
+9. [Histórico de versões](#9-histórico-de-versões)
+10. [Créditos](#10-créditos)
 
-## 4. Estrutura do projeto e arquivos
+---
 
-```
-mapVisual/
-├── assets/
-│   └── icon.png
-├── dist/
-│   ├── mapVisual...1.0.0.6.pbiviz
-│   ├── ...
-│   └── mapVisual...1.0.0.13.pbiviz
-├── src/
-│   ├── settings.ts
-│   ├── styles.d.ts
-│   └── visual.ts
-├── style/
-│   └── visual.less
-├── capabilities.json
-├── eslint.config.mjs
-├── LEIA-ME.txt
-├── package.json
-├── package-lock.json
-├── pbiviz.json
-├── tsconfig.json
-└── webpack.statistics.prod.html
-```
+## 1. O que é e quando usar
 
-```
+O visual desenha uma bolha por localidade, com área proporcional a uma medida.
+A leitura é progressiva: com o mapa afastado, as cidades são somadas em uma bolha
+por **Estado**; ao aproximar além de um nível de zoom configurável, as bolhas se
+abrem por **Cidade**.
 
-```
+Clicar em uma bolha seleciona todas as linhas daquela cidade ou estado e filtra
+ou realça os outros visuais da página. O tooltip junta, sem repetir, os valores
+de até 20 campos — útil para listar, por exemplo, os itens que existem em cada
+cidade.
 
-Responsabilidade dos arquivos:
+O visual **não geocodifica**: ele precisa de latitude e longitude prontas no
+modelo.
 
-- `src/visual.ts`: ciclo de vida, mapa, dados, agregação, marcadores, seleção, tooltip, acessibilidade e importação do ícone.
-- `src/settings.ts`: cartões e controles do painel Formatar, defaults e validadores.
-- `capabilities.json`: contrato entre Power BI e visual, incluindo acesso web.
-- `pbiviz.json`: identidade, versão, API, autor, ícone e arquivos associados.
-- `package.json` e `package-lock.json`: scripts, dependências e instalação reproduzível.
-- `style/visual.less`: CSS do MapLibre, foco visível e forced colors; os estilos críticos dos marcadores são aplicados diretamente pelo TypeScript.
-- `LEIA-ME.txt`: resumo funcional e instruções locais; não existe `README.md`.
-- `dist/`: pacote atual e versões históricas.
-- `webpack.statistics.prod.html`: relatório do bundle regenerado no empacotamento.
+**Use quando:**
 
-## 5. Alocação de dados
+- Você já tem coordenadas por cidade e quer ver a distribuição geográfica de um
+  indicador.
+- A análise começa no nível de Estado e desce para Cidade sem criar hierarquia
+  de drill.
+- O mapa precisa funcionar como filtro para os demais visuais.
 
-O mapeamento é tabular e aplica redução `top` de até 30.000 linhas.
+**Prefira o mapa nativo (Azure Maps) quando:**
 
-| Campo | Tipo | Máximo | Comportamento |
-| --- | --- | --- | --- |
-| Estado | Agrupamento | 1 | Obrigatório em runtime; forma o nível estadual. |
-| Cidade | Agrupamento | 1 | Obrigatório em runtime; compõe a chave Estado + Cidade. |
-| Latitude | Numérico | 1 | Obrigatória; deve estar entre -90 e 90. |
-| Longitude | Numérico | 1 | Obrigatória; deve estar entre -180 e 180. |
-| Tamanho | Medida numérica | 1 | Opcional; é somado. Sem o campo, cada linha vale 1. |
-| Rótulo da cidade | Agrupamento ou medida | 1 | Opcional; valores únicos são unidos; vazio usa Cidade. |
-| Contexto da seleção | Agrupamento | 5 | Opcional; acompanha a identidade tabular da linha. |
-| Dicas de ferramenta | Agrupamento ou medida | 20 | Opcional; valores adicionais deduplicados por campo. |
+- Os dados têm só nome de cidade ou endereço, sem coordenadas.
+- Você precisa de áreas coloridas (coroplético) em vez de bolhas.
+- O ambiente bloqueia acesso à internet a partir do Power BI.
 
-<aside>
-⚠️
+---
 
-`capabilities.json` não define cardinalidade mínima, mas o código exige Estado, Cidade, Latitude e Longitude para gerar pontos. Quando algum desses papéis falta — ou todas as linhas são rejeitadas — a mensagem exibida é **Adicione Estado, Cidade, Latitude e Longitude.**
+## 2. Instalação no Power BI
 
-</aside>
+1. Baixe o `.pbiviz` da versão mais recente nas [Releases do Map Visual](https://github.com/VieiraJulio/powerbi-custom-visuals/releases?q=mapVisual&expanded=true).
+2. No Power BI Desktop, abra o painel **Visualizações**.
+3. Clique nas reticências (`...`) e escolha **Importar um visual de um arquivo**.
+4. Selecione o arquivo baixado e confirme o aviso de visual não certificado.
+5. O ícone passa a aparecer no painel de visualizações do relatório.
 
-### 5.1 Estado e Cidade
+> [!IMPORTANT]
+> O fundo do mapa vem do **Mapbox** pela internet. O Power BI Desktop e o Service
+> precisam conseguir acessar `https://api.mapbox.com`. Em redes corporativas com
+> restrição de saída, peça a liberação desse domínio.
 
-- A chave municipal é a combinação exata de Estado e Cidade após remover espaços nas extremidades.
-- Diferenças de maiúsculas, acentos ou grafia continuam criando grupos distintos.
-- O nível estadual é calculado a partir das cidades válidas.
-- O clique em um Estado seleciona todas as identidades de linha agregadas naquele Estado.
+> [!NOTE]
+> A importação vale para o relatório atual. Para disponibilizar o visual para
+> toda a organização, o `.pbiviz` precisa ser publicado no repositório de visuais
+> da organização por um administrador do Fabric.
 
-### 5.2 Latitude e Longitude
+---
 
-- Não existe geocodificação.
-- Valores ausentes, não finitos ou fora dos limites geográficos são descartados.
-- Coordenadas divergentes para a mesma Cidade + Estado são combinadas por média ponderada pelo Tamanho.
-- O centro do Estado também é uma média ponderada pelos totais municipais.
+## 3. Campos
 
-### 5.3 Tamanho
+<!-- ![Campos do visual preenchidos](img/03-campos.png) — descomente quando a imagem existir -->
 
-- Com o papel configurado, valores nulos, zero e negativos são tratados como zero e a linha é descartada.
-- Sem o papel, cada linha válida recebe Tamanho igual a 1.
-- O total da cidade e do Estado é a soma das linhas válidas.
-- O raio usa escala de raiz quadrada relativa ao maior ponto do nível ativo.
+| Campo | Obrigatório | Tipo aceito | O que faz |
+|---|---|---|---|
+| **Estado** | Sim | Coluna | Forma o nível estadual e compõe, com a Cidade, a chave de cada bolha. |
+| **Cidade** | Sim | Coluna | Forma o nível municipal. |
+| **Latitude** | Sim | Coluna numérica (sem resumo) | Entre -90 e 90. |
+| **Longitude** | Sim | Coluna numérica (sem resumo) | Entre -180 e 180. |
+| **Tamanho** | Não | Medida numérica | Define a área da bolha e o número exibido nela. Sem o campo, cada linha vale 1. |
+| **Rótulo da cidade** | Não | Coluna ou medida | Texto exibido no lugar do nome da cidade. |
+| **Dicas de ferramenta** | Não | Coluna ou medida, até 20 campos | Valores adicionais no tooltip, sem repetição por bolha. |
 
-```
+Sem **Estado**, **Cidade**, **Latitude** e **Longitude** — ou se nenhuma linha
+tiver coordenadas válidas — o visual exibe
+`Adicione Estado, Cidade, Latitude e Longitude.`
+
+---
+
+## 4. Regra de cálculo
+
+As linhas recebidas do Power BI passam por três etapas antes de virar bolhas.
+
+**1. Validação.** São descartadas as linhas sem Estado ou Cidade, com
+coordenadas vazias ou fora dos limites e — quando o campo **Tamanho** existe —
+com Tamanho nulo, zero ou negativo.
+
+**2. Agregação por Cidade.** Linhas com o mesmo par Estado + Cidade (comparado
+depois de remover espaços nas pontas) viram uma bolha só:
+
+- o Tamanho é **somado**;
+- as coordenadas são a **média ponderada pelo Tamanho**, caso a mesma cidade
+  venha com coordenadas diferentes;
+- rótulos e valores de tooltip são unidos, sem repetição.
+
+**3. Agregação por Estado.** Cada bolha de Estado soma as suas cidades, e o
+centro é a média das coordenadas das cidades ponderada pelos totais.
+
+O raio usa escala de **raiz quadrada**, relativa ao maior valor do nível que está
+na tela. Assim, a **área** da bolha é proporcional ao valor:
+
+```text
 proporção = raiz_quadrada(tamanho_do_ponto / maior_tamanho_do_nível)
-raio = raio_mínimo + (raio_máximo - raio_mínimo) × proporção
+raio      = raio_mínimo + (raio_máximo - raio_mínimo) × proporção
 ```
 
-### 5.4 Rótulo da cidade
+| Tamanho | Maior do nível | Raio (padrões 18 e 42 px) |
+|---|---|---|
+| 100 | 100 | 42 px |
+| 25 | 100 | 30 px |
+| 1 | 100 | 20,4 px |
 
-- Rótulos não vazios e distintos são unidos por vírgula.
-- Se o papel não estiver configurado ou ficar vazio, o nome da Cidade é exibido.
-- O rótulo de Estado usa sempre o próprio Estado.
+> [!IMPORTANT]
+> Grafias diferentes da mesma cidade (`Belo Horizonte` e `BELO HORIZONTE`, ou
+> com e sem acento) viram bolhas separadas. Padronize os nomes no modelo.
 
-### 5.5 Contexto da seleção
+---
 
-O código não lê esse papel diretamente. Como o mapeamento é tabular e cada identidade é criada com `withTable(table, rowIndex)`, os campos colocados em Contexto da seleção acompanham a identidade de cada linha. Isso permite preservar dimensões como Status do atendimento no clique da bolha, conforme os relacionamentos do modelo.
+## 5. Painel de formatação
 
-## 6. Processamento, agregação e estados de dados
+### 5.1 Bolhas
 
-1. O visual recebe o primeiro `DataView` e sua tabela.
-2. Localiza os índices dos papéis pelo metadado das colunas.
-3. Rejeita linhas sem Estado/Cidade, com coordenadas inválidas ou com Tamanho não positivo quando a medida existe.
-4. Agrupa as linhas válidas por Estado + Cidade.
-5. Soma Tamanho, calcula coordenadas ponderadas, reúne rótulos, tooltips e identidades.
-6. Deriva os pontos de Estado a partir das cidades.
-7. Calcula raios separadamente para Cidades e Estados.
-8. Gera uma assinatura de dados para evitar reconstrução desnecessária dos marcadores.
-9. Ajusta o mapa aos dados quando a assinatura muda.
+| Propriedade | Padrão | Intervalo | Efeito |
+|---|---|---|---|
+| **Cor da bolha** | `#E67E22` | — | Cor de preenchimento de todas as bolhas. |
+| **Transparência (%)** | `34` | 0 a 100 | Transparência do preenchimento. |
+| **Cor da borda** | `#FFFFFF` | — | — |
+| **Espessura da borda** | `3` | 0 a 12 | Em pixels. |
+| **Mostrar borda de seleção** | Ligado | — | Contorno nas bolhas selecionadas: sólido para seleção total, tracejado para parcial. |
+| **Cor da borda de seleção** | `#2563EB` | — | Só aparece com a opção anterior ligada. |
+| **Raio mínimo** | `18` | 4 a 120 | Raio da menor bolha, em pixels. |
+| **Raio máximo** | `42` | 4 a 180 | Raio da maior bolha. Se ficar menor que o mínimo, é elevado ao mínimo. |
+| **Mostrar quantidade** | Ligado | — | Selo escuro no canto da bolha com o Tamanho, com até duas casas decimais. |
 
-Estados observados:
+### 5.2 Ícone
 
-- Estado inicial: **Carregando mapa...**
-- Sem campos/pontos válidos: **Adicione Estado, Cidade, Latitude e Longitude.**
-- Token ausente: **Informe o token público do Mapbox no visual.ts.**
-- Falha síncrona de inicialização: **O mapa não pôde ser inicializado.**
-- Erros assíncronos do MapLibre, seleção ou identidade: registrados no console.
-- Se um `dataView` ficar totalmente ausente depois de dados anteriores, o código não limpa explicitamente os marcadores; o cenário deve ser validado no host.
+| Propriedade | Padrão | Intervalo | Efeito |
+|---|---|---|---|
+| **Mostrar ícone** | Ligado | — | Desenha um ícone no centro de cada bolha (padrão: trator). |
+| **Mostrar botão de configurações** | Ligado | — | Engrenagem visível só em modo de edição, com a ação **Importar PNG**. |
+| **Tamanho do ícone (%)** | `58` | 10 a 100 | Relativo ao tamanho da bolha. |
+| **Opacidade do ícone (%)** | `100` | 0 a 100 | — |
 
-## 7. Mapa, níveis e painel de formatação
+O PNG importado vale para todas as bolhas: até **5 MB**, redimensionado para no
+máximo **128 px** e salvo dentro do relatório. Nada é enviado para a internet.
 
-O mapa inicia centralizado aproximadamente no Brasil, em longitude -44, latitude -18,5, com zoom 5. O intervalo permitido é de zoom 2 a 18. Os controles nativos de zoom, bússola e pitch ficam no canto superior direito.
+### 5.3 Níveis do mapa
 
-### 7.1 Bolhas
+| Propriedade | Padrão | Intervalo | Efeito |
+|---|---|---|---|
+| **Alternar Estado/Cidade pelo zoom** | Ligado | — | Desligado, o mapa mostra sempre Cidades. |
+| **Zoom para mostrar cidades** | `7` | 2 a 18 | Abaixo desse zoom, Estados; a partir dele, Cidades. |
+| **Duração da transição (ms)** | `280` | 0 a 1.500 | Animação ao trocar de nível. |
+| **Mostrar nome do estado** | Ligado | — | — |
+| **Mostrar nome da cidade** | Ligado | — | — |
 
-Valores padrão e limites:
+### 5.4 Dicas de ferramenta
 
-- Cor: `#E67E22`.
-- Transparência: 34%, intervalo 0%–100%.
-- Cor da borda: `#FFFFFF`.
-- Espessura da borda: 3 px, intervalo 0–12.
-- Mostrar contorno de seleção: ativado.
-- Cor do contorno: `#2563EB`; o seletor só aparece quando o contorno está ativo.
-- Raio mínimo: 18 px, intervalo 4–120.
-- Raio máximo: 42 px, intervalo 4–180.
-- Se o máximo ficar menor que o mínimo, o runtime eleva o máximo ao mínimo.
-- Mostrar quantidade: ativado.
-- A quantidade aparece em um selo escuro no canto da bolha e usa até duas casas decimais.
+| Propriedade | Padrão | Efeito |
+|---|---|---|
+| **Ativar dicas de ferramenta** | Ligado | Liga ou desliga o tooltip. |
+| **Incluir quantidade** | Ligado | Mostra o Tamanho no tooltip. |
 
-### 7.2 Ícone
+O visual também aceita **páginas de dica de ferramenta** do Power BI.
 
-- Mostrar: ativado.
-- Padrão: trator em SVG embutido.
-- Mostrar botão de configurações: ativado, somente em autoria.
-- Tamanho: 58%, intervalo 10%–100%.
-- Opacidade: 100%, intervalo 0%–100%.
-- O mesmo ícone é aplicado a todas as bolhas.
+### 5.5 Navegação
 
-### 7.3 Níveis do mapa
+- O mapa abre centralizado no Brasil, com zoom 5; o zoom vai de 2 a 18.
+- Controles de zoom, bússola e inclinação ficam no canto superior direito.
+- Quando os dados mudam, o mapa se ajusta a eles: um único ponto é centralizado
+  com zoom 9; vários pontos são enquadrados com zoom máximo 11.
+- Clicar em uma bolha **não** aproxima o mapa.
 
-- Alternar Estado/Cidade pelo zoom: ativado.
-- Zoom para mostrar cidades: 7, intervalo 2–18.
-- Abaixo do limite: Estados.
-- Igual ou acima do limite: Cidades.
-- Se a alternância for desativada, o visual permanece em Cidades.
-- Duração da transição: 280 ms, intervalo 0–1.500.
-- Rótulos de Estado e Cidade: ativados por padrão.
+---
 
-### 7.4 Ajuste aos dados
+## 6. Receitas
 
-- Um único ponto: centralização direta com zoom 9.
-- Vários pontos: `fitBounds` com padding 70 e zoom máximo 11.
-- O ajuste acontece quando a assinatura de dados muda; alterações de filtro podem recentralizar o mapa.
-- Clicar em uma bolha não aproxima automaticamente.
+### 6.1 Clientes por cidade
 
-## 8. Interação, seleção e filtros cruzados
+Modelo de exemplo, com uma dimensão de cidades já geocodificada:
 
-- Clique em uma bolha seleciona todas as linhas que formam a Cidade ou o Estado.
-- Ctrl+clique ou Cmd+clique adiciona/remova pontos em uma multisseleção.
-- Enter ou Espaço seleciona o marcador focalizado.
-- Clique em área vazia do mapa limpa a seleção.
-- Seleção total usa contorno sólido; seleção parcial usa contorno tracejado.
-- Quando há seleção relevante, pontos não selecionados passam para 35% de opacidade.
-- Seleções externas são sincronizadas pelo callback do SelectionManager.
-- A interação respeita `hostCapabilities.allowInteractions`.
-- A propagação para cards, tabelas e gráficos depende das relações e de Editar interações no Power BI.
-
-<aside>
-📌
-
-`supportsHighlight` está declarado no contrato, mas o código não processa um estado visual dedicado de highlight. Esse comportamento deve ser validado no Power BI antes de ser apresentado como recurso concluído.
-
-</aside>
-
-## 9. Fluxo de renderização e performance
-
-### 9.1 Ciclo de atualização
-
-1. Lê seleção atual, modo de exibição e viewport.
-2. Carrega o painel de formatação.
-3. Converte e agrega os dados quando existe tabela.
-4. Compara assinaturas de dados e formatação.
-5. Reconstrói marcadores somente quando uma assinatura muda.
-6. Redimensiona e reposiciona no próximo `requestAnimationFrame`.
-7. Ajusta o mapa aos dados quando necessário.
-8. Atualiza a mensagem de estado.
-9. Em `destroy()`, fecha tooltip, remove listeners globais, timers, marcadores e a instância MapLibre.
-
-### 9.2 Otimizações atuais
-
-- Agregação prévia por Cidade e Estado.
-- Níveis distintos reduzem o número simultâneo de marcadores.
-- Escala de raiz quadrada reduz a dominância visual de valores altos.
-- Marcadores fora da viewport são ocultados com margem.
-- Movimento e zoom reposicionam marcadores sem recriar a árvore.
-- Assinaturas evitam reconstrução quando dados e formatação não mudaram.
-- O bundle é dominado pelo MapLibre; D3 declarado e não usado deve ser removido.
-
-## 10. Pré-requisitos, instalação e desenvolvimento
-
-Pré-requisitos:
-
-1. Node.js e npm.
-2. Power BI Visuals Tools compatível.
-3. Dependências instaladas conforme `package-lock.json`.
-4. Acesso aos domínios declarados em `capabilities.json`.
-5. Power BI Desktop para validação funcional.
-6. Estado, Cidade, Latitude e Longitude válidos no modelo.
-
-### 10.1 Configuração pessoal do Mapbox
-
-<aside>
-🔐
-
-A chave da API do Mapbox é pessoal e **não acompanha o código disponível no repositório**. O repositório deve manter apenas o placeholder; cada usuário precisa gerar e inserir seu próprio token somente no ambiente local.
-
-</aside>
-
-1. Criar ou acessar uma conta no Mapbox.
-2. Gerar um token público de acesso apropriado ao uso do mapa.
-3. Abrir `src/visual.ts` na cópia local do projeto.
-4. Localizar a constante `MAPBOX_ACCESS_TOKEN`.
-5. Substituir localmente o placeholder pelo token pessoal.
-6. Manter essa alteração fora de commits, compartilhamentos e pacotes de código-fonte.
-7. Restringir origem e escopo do token conforme a política do Mapbox.
-
-```tsx
-const MAPBOX_ACCESS_TOKEN: string =
-    "COLE_SEU_TOKEN_ATUAL_AQUI";
+```dax
+Clientes Ativos = DISTINCTCOUNT ( fVendas[ClienteID] )
 ```
 
-Sem um token configurado, o visual informa **Informe o token público do Mapbox no visual.ts.** e não inicializa o mapa.
+| Campo do visual | Campo do modelo |
+|---|---|
+| Estado | `dCidade[UF]` |
+| Cidade | `dCidade[Cidade]` |
+| Latitude | `dCidade[Latitude]` |
+| Longitude | `dCidade[Longitude]` |
+| Tamanho | `[Clientes Ativos]` |
 
-Comandos do projeto:
+### 6.2 Listar itens no tooltip
 
-```powershell
-npm ci
-npm run lint
-npx tsc --noEmit
-npm run package
-```
+Arraste uma coluna de identificação (por exemplo `fEquipamentos[NumeroSerie]`)
+direto para **Dicas de ferramenta**. O visual junta os valores únicos de todas as
+linhas da bolha, sem repetir. Uma medida com `CONCATENATEX` também funciona.
 
-Observações:
+### 6.3 Usar o mapa como filtro da página
 
-- Não existe script `test`.
-- Não existe script `typecheck`; o comando é manual.
-- O `pbiviz` usado na validação está instalado globalmente e não consta em `devDependencies`.
-- O diretório atual não é reconhecido como repositório Git.
+1. Clique em uma bolha para filtrar a página por aquela cidade ou estado.
+2. Use **Ctrl+clique** (ou **Cmd+clique** no macOS) para selecionar várias.
+3. Clique em uma área vazia do mapa para limpar a seleção.
+4. Em **Formatar > Editar interações**, escolha se cada visual de destino será
+   filtrado ou realçado.
 
-Configuração conceitual usada no BI POPs:
+A propagação depende dos relacionamentos do modelo entre a tabela de cidades e
+as tabelas dos outros visuais.
 
-- Estado: `d_cidade[UF]`.
-- Cidade: `d_cidade[CIDADE_EXIBICAO]`.
-- Latitude: `d_cidade[Latitude_Cidade]`.
-- Longitude: `d_cidade[Longitude_Cidade]`.
-- Tamanho: `[Máquinas Não Atendidas]`.
-- Contexto da seleção: uma dimensão como Status do atendimento, quando necessário.
-- Dicas de ferramenta: chassi, responsável, filial e demais detalhes.
+---
 
-## 11. Empacotamento e importação no Power BI
+## 7. Limitações conhecidas
 
-Processo:
+- **Depende de internet** e do serviço do Mapbox; não há modo offline.
+- **Não geocodifica** nomes ou endereços.
+- **Até 30.000 linhas.** Acima disso, o Power BI entrega uma amostra ao visual.
+- **Sem agrupamento de bolhas próximas** (*clustering*): bolhas vizinhas podem
+  se sobrepor.
+- **A escala é relativa** ao maior valor do nível na tela; o mesmo número pode
+  gerar bolhas de tamanhos diferentes em filtros diferentes.
+- **Filtros podem recentralizar o mapa**, porque o enquadramento acompanha os
+  dados.
+- **O estilo do mapa não é configurável** no painel.
+- **Um ícone para todas as bolhas.**
+- **Tooltip orientado a mouse.**
+- **Realce (highlight) sem estado visual próprio** quando outro visual filtra o mapa.
+- **Visual não certificado — e não certificável enquanto acessar a internet.**
+  Não aparece em exportação para PowerPoint nem em assinaturas por e-mail.
 
-1. Instalar dependências com `npm ci`.
-2. Executar lint.
-3. Executar o typecheck e tratar incompatibilidades.
-4. Gerar o pacote com `npm run package`.
-5. No Power BI Desktop, escolher **Obter mais visuais > Importar um visual de um arquivo**.
-6. Selecionar o `.pbiviz` atual.
-7. Configurar os campos geográficos e validar o mapa com internet disponível.
-8. Conferir seleção, tooltip, zoom, filtros, persistência e modo de leitura.
-9. Validar também no Power BI Service.
+---
 
-## 12. Limitações, riscos e boas práticas
+## 8. Solução de problemas
 
-### 12.1 Limitações conhecidas
+| O que aparece | Causa | Correção |
+|---|---|---|
+| Bolhas aparecem, mas o fundo do mapa fica vazio | O fundo não veio do Mapbox: rede bloqueada ou token do pacote revogado. | Verifique o acesso a `https://api.mapbox.com` e atualize para o pacote mais recente das Releases. |
+| `Adicione Estado, Cidade, Latitude e Longitude.` | Falta um dos quatro campos, ou todas as linhas têm coordenadas inválidas. | Preencha os quatro campos e confira se Latitude e Longitude são numéricas e estão dentro dos limites. |
+| `Pacote gerado sem token do Mapbox. Consulte a documentação de desenvolvimento.` | O `.pbiviz` foi compilado sem token. | Use o pacote publicado nas Releases ou peça a quem gerou o pacote que siga a [documentação técnica](../../visuais/mapVisual/README.md#6-token-do-mapbox). |
+| `O mapa não pôde ser inicializado.` | O navegador ou o Desktop não conseguiu criar o mapa (por exemplo, WebGL desativado). | Atualize o Power BI Desktop ou teste no Service; persistindo, [abra uma issue](https://github.com/VieiraJulio/powerbi-custom-visuals/issues/new/choose). |
+| Bolhas no oceano ou em outro país | Latitude e Longitude trocadas, ou importadas como texto com separador errado. | Confira a ordem dos campos e o tipo de dado das colunas. |
+| A mesma cidade aparece em duas bolhas | Grafias diferentes do nome ou do estado. | Padronize os nomes na dimensão de cidades. |
+| Clicar na bolha não filtra outro visual | Interação desativada ou falta relacionamento. | Revise **Editar interações** e os relacionamentos do modelo. |
 
-- Depende de internet, Mapbox e token válido.
-- Não geocodifica endereços.
-- Processa no máximo 30.000 linhas entregues pelo mapeamento.
-- Não possui clustering; pontos próximos podem se sobrepor.
-- A escala é relativa ao maior valor de cada nível.
-- Grafias diferentes da mesma localidade produzem grupos separados.
-- Coordenadas divergentes são reduzidas a um centro ponderado.
-- Filtros que mudam os dados podem recentralizar o mapa.
-- O estilo cartográfico não é configurável.
-- Um PNG personalizado vale para todas as bolhas.
-- Tooltip é orientado a mouse.
-- Highlights não têm estado dedicado.
-- Não existe fallback offline.
-- Erros assíncronos podem ficar apenas no console.
+---
 
-### 12.2 Segurança e governança
+## 9. Histórico de versões
 
-- `WebAccess` é essencial e restrito no manifesto a Mapbox e OpenStreetMap.
-- O código carrega tiles do Mapbox; o domínio OpenStreetMap não é chamado diretamente pela implementação inspecionada.
-- Requisições de tiles expõem ao provedor o token público e a região visualizada, mas o código não envia explicitamente os valores brutos das linhas.
-- Textos são inseridos com `textContent`/atributos; não há `innerHTML`, `eval`, `fetch` próprio ou URL arbitrária de ícone.
-- O PNG é processado localmente e persistido no relatório.
-- Permissões sobre dados continuam sob responsabilidade do modelo, relatório e ambiente Power BI.
-- Tokens públicos devem ser restritos, monitorados e rotacionados conforme a política do provedor.
+As mudanças de cada versão estão no
+[`CHANGELOG.md`](../../visuais/mapVisual/CHANGELOG.md) do visual, e os pacotes
+ficam nas [Releases do Map Visual](https://github.com/VieiraJulio/powerbi-custom-visuals/releases?q=mapVisual&expanded=true).
 
-### 12.3 Performance e manutenção
+---
 
-- Manter Estado/Cidade normalizados e coordenadas consistentes.
-- Usar uma medida de Tamanho já agregada e não negativa.
-- Evitar campos desnecessários na tabela e no tooltip.
-- Avaliar clustering ou camadas WebGL quando o volume crescer.
-- Remover D3 se continuar sem uso.
-- Manter `package-lock.json` versionado e preferir `npm ci`.
-- Sincronizar `capabilities.json`, `settings.ts`, `visual.ts` e `LEIA-ME.txt`.
-- Rodar lint, typecheck, package e testes funcionais em cada entrega.
-- Medir bundle, tempo de atualização e quantidade de marcadores.
+## 10. Créditos
+
+Desenvolvido por **Julio Vieira** e **Keven Cardoso**. Licenciado sob
+[Apache-2.0](../../LICENSE). Fundo do mapa © Mapbox © OpenStreetMap.
+
+Para arquitetura, processamento dos dados, configuração do token e comandos de
+build, veja a [documentação técnica](../../visuais/mapVisual/README.md).

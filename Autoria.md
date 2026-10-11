@@ -34,10 +34,9 @@ em relatórios de produção, e cada componente passou por validação em uso re
 antes de ser consolidado neste repositório.
 
 > [!NOTE]
-> Os arquivos `pbiviz.json` dos três projetos declaram atualmente apenas um autor
-> no campo `author`, herdado do momento em que os pacotes foram gerados. A
-> atribuição correta é a desta página, e o alinhamento dos metadados dos pacotes
-> consta como item de trabalho futuro no [README](README.md#10-trabalhos-futuros).
+> O campo `author` do `pbiviz.json` aceita uma única pessoa e mantém o registro
+> de quem gerou os pacotes. A atribuição completa é a desta página; os links de
+> suporte e de código dos pacotes apontam para este repositório.
 
 ---
 
@@ -85,12 +84,6 @@ O software é fornecido **"no estado em que se encontra"**, sem garantias
 expressas ou implícitas. Os autores não respondem por decisões de negócio
 tomadas a partir de relatórios que utilizem estes visuais.
 
-> [!IMPORTANT]
-> Os arquivos `package.json` dos três projetos declaram `"license": "MIT"`,
-> valor herdado do template de scaffolding do `pbiviz`. A licença efetiva do
-> repositório é a Apache-2.0 declarada em `LICENSE`. A correção desse campo
-> consta como item de trabalho futuro.
-
 ---
 
 ## 4. Licenças de terceiros
@@ -110,11 +103,12 @@ abaixo. Todas adotam licenças permissivas compatíveis com a Apache-2.0.
 | [`eslint`](https://github.com/eslint/eslint) | `9.x` | MIT | Análise estática (desenvolvimento) |
 
 **Serviços externos.** O Map Visual declara o privilégio `WebAccess` para
-`https://tile.openstreetmap.org` e `https://api.mapbox.com`. O uso desses
-serviços está sujeito às respectivas políticas:
+`https://api.mapbox.com` e `https://tile.openstreetmap.org`; na versão atual,
+apenas o Mapbox é efetivamente chamado. O uso desses serviços está sujeito às
+respectivas políticas:
 
 - OpenStreetMap — [Tile Usage Policy](https://operations.osmfoundation.org/policies/tiles/) e dados sob [ODbL](https://www.openstreetmap.org/copyright)
-- Mapbox — [Termos de serviço](https://www.mapbox.com/legal/tos), que podem exigir chave de API própria em uso de produção
+- Mapbox — [Termos de serviço](https://www.mapbox.com/legal/tos); o acesso exige um token próprio, que nunca é versionado (veja [`SECURITY.md`](SECURITY.md))
 
 ---
 
@@ -137,20 +131,11 @@ do AppSource.
 
 ## 6. Contribuições
 
-Relatos de comportamento inesperado, sugestões de novos visuais e propostas de
-melhoria são bem-vindos pela aba
-[Issues](https://github.com/VieiraJulio/powerbi-custom-visuals/issues).
-
-Ao relatar um problema, informe:
-
-1. Nome e **versão** do visual (visível em `pbiviz.json` ou no nome do arquivo `.pbiviz`);
-2. Versão do Power BI Desktop e se o comportamento também ocorre no Service;
-3. Passos para reproduzir, com **dados fictícios**;
-4. Print da tela, quando o problema for visual.
-
-> [!CAUTION]
-> Não anexe capturas de tela com dados reais de clientes, faturamento ou qualquer
-> informação sensível. Reproduza o cenário com dados fictícios antes de publicar.
+Relatos de problemas, sugestões de melhoria, propostas de novos visuais e pull
+requests são bem-vindos. O fluxo completo — formulários de issue, padrão de
+commits, checklist do pull request e processo de release — está em
+**[`CONTRIBUTING.md`](CONTRIBUTING.md)**. Falhas de segurança seguem o
+[`SECURITY.md`](SECURITY.md).
 
 Contribuições de código enviadas a este repositório são licenciadas sob os
 mesmos termos da Apache-2.0, conforme a seção 5 da licença.

@@ -28,6 +28,7 @@ não recebe data de publicação; a data de acesso indica a versão consultada.
 4. [Padrões web e acessibilidade](#4-padrões-web-e-acessibilidade)
 5. [Fundamentação em visualização de dados](#5-fundamentação-em-visualização-de-dados)
 6. [Leituras complementares](#6-leituras-complementares)
+7. [Práticas de repositório e versionamento](#7-práticas-de-repositório-e-versionamento)
 
 ---
 
@@ -61,6 +62,13 @@ Documentação normativa da Microsoft sobre o modelo de visuais personalizados.
 - MICROSOFT. **Get a Power BI visual certified.** Disponível em: <https://learn.microsoft.com/power-bi/developer/visuals/power-bi-custom-visuals-certified>. Acesso em: 2 set. 2026.
 - MICROSOFT. **Organizational visuals in Power BI.** Disponível em: <https://learn.microsoft.com/power-bi/developer/visuals/power-bi-custom-visuals-organization>. Acesso em: 2 set. 2026.
 - MICROSOFT. **Power BI visuals security.** Disponível em: <https://learn.microsoft.com/power-bi/developer/visuals/power-bi-custom-visuals-faq>. Acesso em: 2 set. 2026.
+
+**Recursos recomendados** — os mesmos que o `pbiviz package` audita
+
+- MICROSOFT. **Rendering events in Power BI visuals.** Disponível em: <https://learn.microsoft.com/power-bi/developer/visuals/event-service>. Acesso em: 11 out. 2026.
+- MICROSOFT. **High-contrast mode support in Power BI visuals.** Disponível em: <https://learn.microsoft.com/power-bi/developer/visuals/high-contrast-support>. Acesso em: 11 out. 2026.
+- MICROSOFT. **Add the local language to your Power BI visual.** Disponível em: <https://learn.microsoft.com/power-bi/developer/visuals/localization>. Acesso em: 11 out. 2026.
+- MICROSOFT. **Add a context menu to your Power BI visual.** Disponível em: <https://learn.microsoft.com/power-bi/developer/visuals/context-menu>. Acesso em: 11 out. 2026.
 
 ---
 
@@ -139,6 +147,24 @@ consideradas antes da decisão de construir visuais próprios.
 - SQLBI. **DAX Guide.** Disponível em: <https://dax.guide/>. Acesso em: 2 set. 2026.
 - MICROSOFT. **Power BI Visuals Gallery (Microsoft AppSource).** Disponível em: <https://appsource.microsoft.com/marketplace/apps?product=power-bi-visuals>. Acesso em: 2 set. 2026.
 - MICROSOFT. **Microsoft Fabric documentation.** Disponível em: <https://learn.microsoft.com/fabric/>. Acesso em: 2 set. 2026.
+
+---
+
+## 7. Práticas de repositório e versionamento
+
+Convenções adotadas para organizar contribuições, versões e segurança do
+repositório.
+
+- GITHUB. **About community profiles for public repositories.** Disponível em: <https://docs.github.com/communities/setting-up-your-project-for-healthy-contributions/about-community-profiles-for-public-repositories>. Acesso em: 11 out. 2026.
+- GITHUB. **Syntax for issue forms.** Disponível em: <https://docs.github.com/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms>. Acesso em: 11 out. 2026.
+- GITHUB. **About code owners.** Disponível em: <https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners>. Acesso em: 11 out. 2026.
+- GITHUB. **About releases.** Disponível em: <https://docs.github.com/repositories/releasing-projects-on-github/about-releases>. Acesso em: 11 out. 2026.
+- GITHUB. **Privately reporting a security vulnerability.** Disponível em: <https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability>. Acesso em: 11 out. 2026.
+- GITHUB. **Dependabot options reference.** Disponível em: <https://docs.github.com/code-security/dependabot/working-with-dependabot/dependabot-options-reference>. Acesso em: 11 out. 2026.
+- LACAN, Olivier. **Keep a Changelog 1.1.0.** Disponível em: <https://keepachangelog.com/pt-BR/1.1.0/>. Acesso em: 11 out. 2026.
+- CONVENTIONAL COMMITS. **Conventional Commits 1.0.0.** Disponível em: <https://www.conventionalcommits.org/pt-br/v1.0.0/>. Acesso em: 11 out. 2026.
+- CONTRIBUTOR COVENANT. **Código de Conduta de Colaboração, versão 2.1.** Disponível em: <https://www.contributor-covenant.org/pt-br/version/2/1/code_of_conduct/>. Acesso em: 11 out. 2026.
+- MAPBOX. **Access tokens.** Disponível em: <https://docs.mapbox.com/accounts/guides/tokens/>. Acesso em: 11 out. 2026.
 
 ---
 

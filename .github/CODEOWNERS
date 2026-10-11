@@ -1,0 +1,10 @@
+# Revisores solicitados automaticamente nos pull requests.
+# A última regra que casa com o caminho é a que vale.
+
+*           @VieiraJulio @KevenHenrique
+
+# Documentação de uso (guia do analista)
+/docs/      @VieiraJulio
+
+# Código-fonte e documentação técnica dos visuais
+/visuais/   @KevenHenrique

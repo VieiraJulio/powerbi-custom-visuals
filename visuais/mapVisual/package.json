@@ -1,17 +1,27 @@
 {
-  "name": "visual",
-  "description": "Visual personalizado de mapa para Power BI",
+  "name": "powerbi-map-visual",
+  "private": true,
+  "description": "Mapa de bolhas proporcionais por estado e cidade para Power BI, com seleção cruzada",
   "version": "1.0.0.12",
   "repository": {
     "type": "git",
-    "url": "https://github.com/KevenHenrique"
+    "url": "https://github.com/VieiraJulio/powerbi-custom-visuals.git",
+    "directory": "visuais/mapVisual"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
+    "mapbox:config": "node scripts/write-mapbox-config.mjs",
     "pbiviz": "pbiviz",
+    "prestart": "npm run mapbox:config",
     "start": "pbiviz start",
+    "prepackage": "npm run mapbox:config",
     "package": "pbiviz package",
-    "lint": "npx eslint ."
+    "lint": "npx eslint .",
+    "pretypecheck": "npm run mapbox:config",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@types/d3": "7.4.3",

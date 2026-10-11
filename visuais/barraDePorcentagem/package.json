@@ -1,17 +1,23 @@
 {
-  "name": "visual",
-  "description": "default_template_value",
+  "name": "powerbi-barra-de-porcentagem",
+  "private": true,
+  "description": "Barra de porcentagem para Power BI com trilho fixo e cor por meta ou por faixas de desempenho",
   "version": "1.0.0.0",
   "repository": {
-    "type": "default_template_value",
-    "url": "default_template_value"
+    "type": "git",
+    "url": "https://github.com/VieiraJulio/powerbi-custom-visuals.git",
+    "directory": "visuais/barraDePorcentagem"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "pbiviz": "pbiviz",
     "start": "pbiviz start",
     "package": "pbiviz package",
-    "lint": "npx eslint ."
+    "lint": "npx eslint .",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@types/d3": "7.4.3",

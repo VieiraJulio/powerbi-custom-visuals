@@ -11,7 +11,7 @@
     },
     "dataRoles": [
         {
-            "displayName": "Faturamento",
+            "displayName": "Valor realizado",
             "name": "actual",
             "kind": "Measure",
             "description": "Valor realizado exibido no centro do velocímetro.",

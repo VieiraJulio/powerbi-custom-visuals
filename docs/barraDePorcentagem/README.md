@@ -18,12 +18,13 @@
 | | |
 |---|---|
 | **Nome interno** | `barraDePorcentagem` |
-| **Nome exibido** | `BarraDePorcentagem` |
+| **Nome exibido** | `Barra de Porcentagem` |
 | **Versão** | `1.0.0.0` |
 | **API do Power BI** | `5.11.1` |
 | **Renderização** | SVG (Vega-Lite) |
 | **Privilégios externos** | Nenhum |
-| **Pacote** | [`barraDePorcentagem...1.0.0.0.pbiviz`](../../visuais/barraDePorcentagem/dist/) |
+| **Download** | [Releases da Barra de Porcentagem](https://github.com/VieiraJulio/powerbi-custom-visuals/releases?q=barraDePorcentagem&expanded=true) |
+| **Documentação técnica** | [`visuais/barraDePorcentagem`](../../visuais/barraDePorcentagem/README.md) |
 | **Autores** | Julio Vieira e Keven Cardoso |
 
 ---
@@ -38,10 +39,8 @@
 6. [Receitas](#6-receitas)
 7. [Limitações conhecidas](#7-limitações-conhecidas)
 8. [Solução de problemas](#8-solução-de-problemas)
-9. [Referência técnica](#9-referência-técnica)
-10. [Desenvolvimento](#10-desenvolvimento)
-11. [Histórico de versões](#11-histórico-de-versões)
-12. [Créditos](#12-créditos)
+9. [Histórico de versões](#9-histórico-de-versões)
+10. [Créditos](#10-créditos)
 
 ---
 
@@ -78,27 +77,27 @@ mostra `-10%`.
 
 ## 2. Instalação no Power BI
 
-1. Baixe o `.pbiviz` mais recente em [`visuais/barraDePorcentagem/dist/`](../../visuais/barraDePorcentagem/dist/).
+1. Baixe o `.pbiviz` da versão mais recente nas [Releases da Barra de Porcentagem](https://github.com/VieiraJulio/powerbi-custom-visuals/releases?q=barraDePorcentagem&expanded=true).
 2. No Power BI Desktop, abra o painel **Visualizações**.
 3. Clique nas reticências (`...`) e escolha **Importar um visual de um arquivo**.
 4. Selecione o arquivo baixado e confirme o aviso de visual não certificado.
 5. O ícone passa a aparecer no painel de visualizações do relatório.
 
 <!-- IMAGEM: menu "..." aberto no painel Visualizações, com "Importar um visual de um arquivo" destacado por um retângulo. -->
-![Importando o visual no Power BI Desktop](img/02-importar-visual.png)
+<!-- ![Importando o visual no Power BI Desktop](img/02-importar-visual.png) — descomente quando a imagem existir -->
 
 > [!NOTE]
 > A importação vale para o relatório atual, não para a instalação do Power BI.
 > Cada `.pbix` novo precisa importar o visual de novo. Para disponibilizar o
 > visual para toda a organização, o `.pbiviz` precisa ser publicado no repositório
-> de organização por um administrador do Fabric.
+> de visuais da organização por um administrador do Fabric.
 
 ---
 
 ## 3. Campos
 
 <!-- IMAGEM: painel de campos do visual com "Percentual" e "Meta (opcional)" preenchidos e dois campos em "Dica de ferramenta". -->
-![Campos do visual preenchidos](img/03-campos.png)
+<!-- ![Campos do visual preenchidos](img/03-campos.png) — descomente quando a imagem existir -->
 
 | Campo | Obrigatório | Tipo aceito | O que faz |
 |---|---|---|---|
@@ -160,7 +159,7 @@ Todos os controles ficam no ícone de pincel, em **Formatar visual**.
 ### 5.1 Barra
 
 <!-- IMAGEM: cartão "Barra" expandido no painel de formatação. -->
-![Cartão Barra no painel de formatação](img/04a-formatacao-barra.png)
+<!-- ![Cartão Barra no painel de formatação](img/04a-formatacao-barra.png) — descomente quando a imagem existir -->
 
 | Propriedade | Padrão | Intervalo | Efeito |
 |---|---|---|---|
@@ -172,7 +171,7 @@ Todos os controles ficam no ícone de pincel, em **Formatar visual**.
 ### 5.2 Rótulo
 
 <!-- IMAGEM: cartão "Rótulo" expandido, com "Usar cor da barra" ligado. -->
-![Cartão Rótulo no painel de formatação](img/04b-formatacao-rotulo.png)
+<!-- ![Cartão Rótulo no painel de formatação](img/04b-formatacao-rotulo.png) — descomente quando a imagem existir -->
 
 | Propriedade | Padrão | Intervalo | Efeito |
 |---|---|---|---|
@@ -192,7 +191,7 @@ parte preenchida. Por isso ele fica alinhado entre barras de valores diferentes.
 | **Exibir** | Ligado | Liga ou desliga o tooltip. Desligado, os campos arrastados para *Dica de ferramenta* deixam de aparecer. |
 
 <!-- IMAGEM: tooltip aberto sobre a barra, mostrando o percentual e dois campos adicionais. -->
-![Dica de ferramenta aberta](img/06-tooltip.png)
+<!-- ![Dica de ferramenta aberta](img/06-tooltip.png) — descomente quando a imagem existir -->
 
 ### 5.4 Comportamento de cor
 
@@ -200,7 +199,7 @@ O cartão tem um seletor **Modo** no topo. Os grupos de configuração que apare
 abaixo dele mudam conforme o modo escolhido — o painel esconde o que não se aplica.
 
 <!-- IMAGEM: cartão "Comportamento de cor" com o seletor Modo aberto, mostrando as três opções. -->
-![Modos de cor](img/04c-formatacao-cor.png)
+<!-- ![Modos de cor](img/04c-formatacao-cor.png) — descomente quando a imagem existir -->
 
 #### Comparar com a meta — padrão
 
@@ -237,7 +236,7 @@ da divisão pela meta, quando existe meta.
 | **Meta atingida** | `1` | `#22B907` | a partir de 1,00 |
 
 <!-- IMAGEM: cinco barras lado a lado, uma em cada faixa de cor, com o rótulo visível. -->
-![As cinco faixas de cor](img/05-faixas-cores.png)
+<!-- ![As cinco faixas de cor](img/05-faixas-cores.png) — descomente quando a imagem existir -->
 
 Cada faixa aceita valores de `0` a `10`, sempre em **escala fracionária**:
 `0,50` significa 50%, `1` significa 100%, `1,2` significa 120%.
@@ -323,7 +322,7 @@ Lembre-se de digitar em fração: `0,70`, não `70`.
 | `O percentual possui um valor inválido.` | A medida devolveu texto, infinito ou resultado de divisão por zero. | Envolva a medida em `DIVIDE()`, que já trata o denominador zero, ou trate o branco com `COALESCE()`. |
 | `A meta deve possuir um valor maior que zero.` | A medida de meta devolveu zero, negativo ou branco no contexto do filtro. | Verifique se existe meta cadastrada para o período filtrado. Um `COALESCE([Meta]; BLANK())` não resolve — a meta precisa existir. |
 | `Não foi possível calcular o preenchimento da barra.` | A divisão `Percentual / Meta` não resultou em número finito. | Confira se as duas medidas estão na mesma unidade e se a meta não está zerada. |
-| `Ocorreu um erro ao renderizar a barra.` | Falha inesperada na renderização. | Remova e adicione o visual de novo. Persistindo, abra uma issue no repositório com o print e o passo a passo. |
+| `Ocorreu um erro ao renderizar a barra.` | Falha inesperada na renderização. | Remova e adicione o visual de novo. Persistindo, [abra uma issue](https://github.com/VieiraJulio/powerbi-custom-visuals/issues/new/choose) com o print e o passo a passo. |
 | Barra mostra `2.000%` | O valor entrou em escala errada. | Sem **Meta**, o campo **Percentual** espera fração: `0,20`, não `20`. |
 | Rótulo cortado na borda | O trilho está ocupando toda a largura. | Reduza **Comprimento da barra (%)** em **Barra**. |
 | Cor não muda com o valor | O modo está em **Cor fixa**, ou está em **Comparar com a meta** sem o campo **Meta**. | Escolha **Faixas de valor**, ou preencha **Meta (opcional)**. |
@@ -332,155 +331,18 @@ Lembre-se de digitar em fração: `0,70`, não `70`.
 
 ---
 
-## 9. Referência técnica
+## 9. Histórico de versões
 
-### 9.1 Arquitetura
-
-| Camada | Responsabilidade |
-|---|---|
-| **Power BI Host** | Viewport, `DataView`, propriedades persistidas e ciclo de atualização. |
-| **Contrato** | `capabilities.json` define papéis de dados, cardinalidade e propriedades de formatação. |
-| **Configuração** | `src/settings.ts` declara cartões, grupos, controles, padrões, limites e visibilidade condicional. |
-| **Execução** | `src/visual.ts` valida entradas, calcula o progresso, resolve a cor, monta o tooltip e controla o ciclo de vida. |
-| **Gráfica** | Vega-Lite descreve as três camadas do desenho; Vega compila e renderiza em SVG. |
-
-```text
-Usuário configura o relatório
-  ↓
-Power BI calcula as medidas
-  ↓
-DataView entrega Percentual, Meta e Tooltip
-  ↓
-Visual.update() lê dados e formatação
-  ↓
-Validação das entradas
-  ↓
-Cálculo do progresso e do rótulo
-  ↓
-Seleção do modo e da cor
-  ↓
-Construção da especificação Vega-Lite
-  ↓
-Compilação e renderização Vega em SVG
-  ↓
-Barra, rótulo e tooltip no relatório
-```
-
-O desenho tem três camadas: trilho de fundo, preenchimento e texto do rótulo. A
-largura total é calculada a partir do viewport, do percentual de comprimento
-configurado e de uma área fixa reservada para o rótulo.
-
-O recorte do preenchimento é feito assim:
-
-```typescript
-progressoDaBarra = Math.min(Math.max(progressoReal, 0), 1);
-```
-
-A visibilidade condicional dos grupos do painel é controlada em
-`VisualFormattingSettingsModel.updateVisibility()`.
-
-### 9.2 Estrutura do projeto
-
-```text
-barraDePorcentagem/
-├── assets/
-│   └── icon.png
-├── dist/
-│   └── barraDePorcentagem...1.0.0.0.pbiviz
-├── src/
-│   ├── settings.ts
-│   └── visual.ts
-├── style/
-│   └── visual.less
-├── capabilities.json
-├── eslint.config.mjs
-├── package.json
-├── package-lock.json
-├── pbiviz.json
-└── tsconfig.json
-```
-
-| Arquivo | Papel |
-|---|---|
-| `src/visual.ts` | Ciclo de vida, dados, cálculo, cores, tooltip, Vega-Lite, renderização, mensagens e descarte. |
-| `src/settings.ts` | Cartões e grupos do painel Formatar, padrões, limites e visibilidade condicional. |
-| `capabilities.json` | Contrato entre o Power BI e o visual. |
-| `pbiviz.json` | Identidade, versão, API, autor, ícone, estilo e arquivos associados. |
-| `package.json` | Scripts e dependências. |
-| `package-lock.json` | Versões resolvidas para instalação reproduzível. |
-| `style/visual.less` | Estilo herdado do template; não participa da barra desenhada pelo código atual. |
-| `dist/` | Artefatos gerados pelo empacotamento. |
-
-### 9.3 Dependências
-
-| Pacote | Versão | Papel |
-|---|---|---|
-| `powerbi-visuals-api` | `5.11.1` | Contratos de integração com o host. |
-| `powerbi-visuals-utils-formattingmodel` | `^6.0.4` | Painel moderno de formatação. |
-| `vega` | `^5.33.1` | Runtime da visualização. |
-| `vega-lite` | `^5.23.0` | Especificação declarativa e compilação da barra. |
-| `typescript` | `5.5.4` | Linguagem principal. |
-| `eslint` | `^9.11.1` | Análise estática. |
-| `d3` / `@types/d3` | `7.9.0` / `7.4.3` | Declaradas, mas **não utilizadas** pelo código atual. Candidatas a remoção. |
-
-### 9.4 Mapeamento de dados
-
-O `dataViewMappings` é categórico, com as condições:
-
-| Papel | Mínimo | Máximo |
-|---|---|---|
-| `percentual` | 1 | 1 |
-| `meta` | 0 | 1 |
-| `tooltip` | 0 | 20 |
+As mudanças de cada versão estão no
+[`CHANGELOG.md`](../../visuais/barraDePorcentagem/CHANGELOG.md) do visual, e os
+pacotes ficam nas [Releases](https://github.com/VieiraJulio/powerbi-custom-visuals/releases?q=barraDePorcentagem&expanded=true).
 
 ---
 
-## 10. Desenvolvimento
+## 10. Créditos
 
-**Pré-requisitos:** Node.js 18 ou superior, npm, `powerbi-visuals-tools` e o
-Power BI Desktop para validação manual.
+Desenvolvido por **Julio Vieira** e **Keven Cardoso**. Licenciado sob
+[Apache-2.0](../../LICENSE).
 
-Ambiente validado:
-
-```text
-Node.js: 24.18.0
-npm: 11.16.0
-Power BI Visuals Tools: 7.2.1
-```
-
-```bash
-cd visuais/barraDePorcentagem
-
-npm ci               # instalação reproduzível
-
-npm run start        # servidor local para o Visual de Desenvolvedor
-npm run lint         # análise estática
-npx tsc --noEmit     # verificação de tipos
-npm run package      # gera o .pbiviz em dist/
-```
-
-Se o comando `pbiviz` não estiver disponível globalmente:
-
-```bash
-npm install -g powerbi-visuals-tools@7.2.1
-pbiviz --version
-```
-
-Com `npm run start` rodando, adicione o **Visual de Desenvolvedor** a um
-relatório no Power BI Service para validar o código quase em tempo real.
-
----
-
-## 11. Histórico de versões
-
-| Versão | Data | Mudanças |
-|---|---|---|
-| `1.0.0.0` | 2026 | Primeira versão consolidada: trilho estável, rótulo além de 100%, três modos de cor, cinco faixas configuráveis e tooltip com até 20 campos. |
-
----
-
-## 12. Créditos
-
-Desenvolvido por **Julio Vieira** e **Keven Cardoso**.
-
-Licenciado sob [Apache-2.0](../../LICENSE).
+Para arquitetura, mapeamento de dados, dependências e comandos de build, veja a
+[documentação técnica](../../visuais/barraDePorcentagem/README.md).

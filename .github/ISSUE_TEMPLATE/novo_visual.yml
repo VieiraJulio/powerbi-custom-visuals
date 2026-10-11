@@ -1,0 +1,37 @@
+name: Propor novo visual
+description: Uma necessidade que nenhum visual nativo nem deste repositório atende.
+title: "[Novo visual] "
+labels: [novo-visual]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        O repositório só recebe visuais que **encapsulam no próprio visual** uma lógica que, de outra forma,
+        exigiria DAX auxiliar ou especificações Deneb repetidas em cada relatório.
+
+  - type: textarea
+    id: necessidade
+    attributes:
+      label: Necessidade analítica
+      description: Que pergunta de negócio o visual responde?
+    validations:
+      required: true
+
+  - type: textarea
+    id: nativos
+    attributes:
+      label: Por que os visuais nativos não resolvem
+    validations:
+      required: true
+
+  - type: textarea
+    id: campos
+    attributes:
+      label: Campos e propriedades esperados
+      description: Quais medidas/colunas o visual receberia e o que deveria ser configurável no painel Formatar.
+
+  - type: textarea
+    id: esboco
+    attributes:
+      label: Esboço
+      description: Imagem, rascunho ou link para um protótipo (com dados fictícios).

@@ -2,18 +2,29 @@
 node_modules/
 
 # Artefatos de build do pbiviz
+# Os pacotes .pbiviz são gerados pelo CI e publicados em GitHub Releases.
 .tmp/
+dist/
+*.pbiviz
 webpack.statistics.dev.html
 webpack.statistics.prod.html
+
+# Configuração local e segredos (token do Mapbox do Map Visual)
+.env
+.env.local
+.env.*.local
+visuais/mapVisual/src/mapboxConfig.generated.ts
 
 # Sistema operacional
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # Editor
 .vscode/*
 !.vscode/launch.json
 !.vscode/settings.json
+!.vscode/mcp.json
 
 # Logs
 npm-debug.log*

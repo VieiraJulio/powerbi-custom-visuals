@@ -1,13 +1,13 @@
 {
   "visual": {
     "name": "barraDePorcentagem",
-    "displayName": "BarraDePorcentagem",
+    "displayName": "Barra de Porcentagem",
     "guid": "barraDePorcentagemDCC394FDAC284A44B6F4D5B34991AF4B",
     "visualClassName": "Visual",
     "version": "1.0.0.0",
-    "description": "Barra de porcentagem deneb",
-    "supportUrl": "https://github.com/kevenhenrique",
-    "gitHubUrl": "https://github.com/kevenhenrique"
+    "description": "Barra de progresso para percentual de atingimento, com cor por meta ou por faixas configuráveis.",
+    "supportUrl": "https://github.com/VieiraJulio/powerbi-custom-visuals/issues",
+    "gitHubUrl": "https://github.com/VieiraJulio/powerbi-custom-visuals"
   },
   "apiVersion": "5.11.1",
   "author": {

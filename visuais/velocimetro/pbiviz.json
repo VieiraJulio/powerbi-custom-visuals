@@ -5,9 +5,9 @@
     "guid": "velocimetro0BBCD8D8C8D1450D88AABEC4EFC5D619",
     "visualClassName": "Visual",
     "version": "1.0.0.32",
-    "description": "Velocímetro de faturamento versus meta com cores e ícone configuráveis.",
-    "supportUrl": "https://github.com/kevenhenrique",
-    "gitHubUrl": "https://github.com/kevenhenrique"
+    "description": "Velocímetro de valor realizado versus meta, com faixas de desempenho e ícone configuráveis.",
+    "supportUrl": "https://github.com/VieiraJulio/powerbi-custom-visuals/issues",
+    "gitHubUrl": "https://github.com/VieiraJulio/powerbi-custom-visuals"
   },
   "apiVersion": "5.11.1",
   "author": {

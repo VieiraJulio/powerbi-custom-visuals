@@ -1,17 +1,23 @@
 {
-  "name": "velocimetro-powerbi",
-  "description": "Velocímetro de desempenho personalizável para Power BI",
+  "name": "powerbi-velocimetro",
+  "private": true,
+  "description": "Velocímetro de valor realizado versus meta para Power BI, com faixas de desempenho configuráveis",
   "version": "1.0.0.32",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kevenhenrique"
+    "url": "https://github.com/VieiraJulio/powerbi-custom-visuals.git",
+    "directory": "visuais/velocimetro"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "pbiviz": "pbiviz",
     "start": "pbiviz start",
     "package": "pbiviz package",
-    "lint": "npx eslint ."
+    "lint": "npx eslint .",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "powerbi-visuals-api": "5.11.1",

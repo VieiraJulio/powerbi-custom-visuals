@@ -14,8 +14,9 @@ authors:
 abstract: >-
   Acervo de visuais personalizados (.pbiviz) para o Microsoft Power BI,
   desenvolvidos para atender a requisitos analíticos não cobertos pelas
-  visualizações nativas. Inclui código-fonte em TypeScript, pacotes
-  compilados e documentação técnica de cada componente.
+  visualizações nativas. Inclui código-fonte em TypeScript, documentação
+  de uso e técnica de cada componente e pacotes compilados publicados
+  como Releases do GitHub.
 keywords:
   - power-bi
   - custom-visuals

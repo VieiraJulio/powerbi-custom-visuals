@@ -1,0 +1,110 @@
+name: Release
+
+# Publica um visual quando uma tag no formato <visual>-v<versão> é enviada.
+# Exemplo: git tag velocimetro-v1.0.1.0 && git push origin velocimetro-v1.0.1.0
+on:
+  push:
+    tags:
+      - "*-v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Ler visual e versão a partir da tag
+        id: tag
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          VISUAL="${TAG%-v*}"
+          VERSION="${TAG##*-v}"
+          DIR="visuais/${VISUAL}"
+
+          if [ ! -f "${DIR}/pbiviz.json" ]; then
+            echo "::error::A pasta ${DIR} não existe. Use tags como velocimetro-v1.0.1.0."
+            exit 1
+          fi
+
+          PBIVIZ_VERSION=$(jq -r '.visual.version' "${DIR}/pbiviz.json")
+          if [ "${PBIVIZ_VERSION}" != "${VERSION}" ]; then
+            echo "::error::A tag indica ${VERSION}, mas ${DIR}/pbiviz.json está em ${PBIVIZ_VERSION}."
+            exit 1
+          fi
+
+          echo "visual=${VISUAL}" >> "$GITHUB_OUTPUT"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "dir=${DIR}" >> "$GITHUB_OUTPUT"
+          echo "name=$(jq -r '.visual.displayName' "${DIR}/pbiviz.json")" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: ${{ steps.tag.outputs.dir }}/package-lock.json
+
+      - name: Instalar dependências
+        working-directory: ${{ steps.tag.outputs.dir }}
+        run: |
+          npm ci
+          npm install --global powerbi-visuals-tools@7.2.1
+
+      - name: Lint e verificação de tipos
+        working-directory: ${{ steps.tag.outputs.dir }}
+        run: |
+          npm run lint
+          npm run typecheck
+
+      - name: Exigir token do Mapbox
+        if: steps.tag.outputs.visual == 'mapVisual'
+        env:
+          MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
+        run: |
+          if [ -z "${MAPBOX_ACCESS_TOKEN}" ]; then
+            echo "::error::Cadastre o secret MAPBOX_ACCESS_TOKEN em Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
+      - name: Empacotar
+        working-directory: ${{ steps.tag.outputs.dir }}
+        env:
+          MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
+        run: npm run package
+
+      - name: Montar notas a partir do CHANGELOG
+        env:
+          DIR: ${{ steps.tag.outputs.dir }}
+          VERSION: ${{ steps.tag.outputs.version }}
+          VISUAL: ${{ steps.tag.outputs.visual }}
+        run: |
+          awk -v v="${VERSION}" '
+            $0 ~ "^## \\[" v "\\]" { found = 1; next }
+            found && /^## \[/ { exit }
+            found { print }
+          ' "${DIR}/CHANGELOG.md" > notes.md
+
+          if [ ! -s notes.md ]; then
+            echo "Consulte o CHANGELOG do visual." > notes.md
+          fi
+
+          {
+            echo ""
+            echo "---"
+            echo "**Instalação:** baixe o arquivo \`.pbiviz\` abaixo e, no Power BI Desktop, use *Visualizações > ... > Importar um visual de um arquivo*."
+            echo ""
+            echo "Documentação: [docs/${VISUAL}](https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_REF_NAME}/docs/${VISUAL}/README.md)"
+          } >> notes.md
+
+      - name: Publicar release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DIR: ${{ steps.tag.outputs.dir }}
+          TITLE: ${{ steps.tag.outputs.name }} ${{ steps.tag.outputs.version }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" "${DIR}"/dist/*.pbiviz \
+            --title "${TITLE}" \
+            --notes-file notes.md \
+            --verify-tag

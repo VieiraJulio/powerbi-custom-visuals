@@ -1,13 +1,13 @@
 {
   "visual": {
     "name": "mapVisual",
-    "displayName": "MapVisual",
+    "displayName": "Map Visual",
     "guid": "mapVisual2EB2FCA8547B4845A3D56E871780B26B",
     "visualClassName": "Visual",
     "version": "1.0.0.12",
-    "description": "Visual personalizado de mapa com bolhas, ícones e tooltips.",
-    "supportUrl": "mailto:kevenaraujo386@gmail.com",
-    "gitHubUrl": "https://github.com/KevenHenrique"
+    "description": "Mapa de bolhas proporcionais por estado e cidade, com seleção cruzada e tooltips.",
+    "supportUrl": "https://github.com/VieiraJulio/powerbi-custom-visuals/issues",
+    "gitHubUrl": "https://github.com/VieiraJulio/powerbi-custom-visuals"
   },
   "apiVersion": "5.11.1",
   "author": {

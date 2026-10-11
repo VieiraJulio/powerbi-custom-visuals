@@ -1,0 +1,16 @@
+# O repositório guarda texto com fim de linha LF; cada sistema operacional
+# usa o seu padrão na cópia de trabalho. Evita diffs inteiros por CRLF/LF.
+* text=auto
+
+# Binários: nunca converter nem tentar diff de texto
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.pbiviz binary
+*.pbix   binary
+*.zip    binary
+
+# Lockfiles aparecem recolhidos nos diffs do GitHub
+package-lock.json linguist-generated=true

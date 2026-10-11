@@ -1,0 +1,36 @@
+name: Sugerir melhoria
+description: Nova propriedade, comportamento ou ajuste em um visual existente.
+title: "[Melhoria] "
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: visual
+    attributes:
+      label: Visual
+      options:
+        - Barra de Porcentagem
+        - Velocímetro
+        - Map Visual
+        - Repositório / documentação
+    validations:
+      required: true
+
+  - type: textarea
+    id: problema
+    attributes:
+      label: Qual problema a melhoria resolve
+      description: Descreva a situação no relatório, não a solução técnica.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposta
+    attributes:
+      label: Como você imagina a solução
+      description: Onde ficaria no painel Formatar, qual seria o valor padrão, etc.
+
+  - type: textarea
+    id: alternativas
+    attributes:
+      label: Como você contorna hoje
+      description: Medidas DAX auxiliares, outro visual, Deneb...

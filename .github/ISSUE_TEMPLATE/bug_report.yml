@@ -1,0 +1,85 @@
+name: Relatar problema
+description: Um visual não se comportou como a documentação descreve.
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Antes de abrir, confira a seção **Solução de problemas** da documentação do visual em [`docs/`](../tree/main/docs).
+        **Use apenas dados fictícios** em prints e exemplos.
+
+  - type: dropdown
+    id: visual
+    attributes:
+      label: Visual
+      options:
+        - Barra de Porcentagem
+        - Velocímetro
+        - Map Visual
+    validations:
+      required: true
+
+  - type: input
+    id: versao
+    attributes:
+      label: Versão do visual
+      description: Está no nome do arquivo `.pbiviz` ou na página da Release.
+      placeholder: "1.0.0.32"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ambiente
+    attributes:
+      label: Onde acontece
+      multiple: true
+      options:
+        - Power BI Desktop
+        - Power BI Service (navegador)
+        - Power BI Embedded
+        - Aplicativo móvel
+    validations:
+      required: true
+
+  - type: input
+    id: versao-desktop
+    attributes:
+      label: Versão do Power BI Desktop
+      description: Ajuda > Sobre. Deixe em branco se não usa o Desktop.
+      placeholder: "Ex.: versão de setembro de 2026"
+
+  - type: textarea
+    id: passos
+    attributes:
+      label: Passos para reproduzir
+      description: Campos usados, configurações do painel Formatar e filtros aplicados.
+      placeholder: |
+        1. Arrastei a medida X para o campo ...
+        2. Em Formatar visual > ..., mudei ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: esperado
+    attributes:
+      label: O que era esperado
+    validations:
+      required: true
+
+  - type: textarea
+    id: observado
+    attributes:
+      label: O que aconteceu
+      description: Se o visual exibiu uma mensagem, copie o texto exato. Prints ajudam.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: dados
+    attributes:
+      label: Confidencialidade
+      options:
+        - label: Os prints e exemplos desta issue não contêm dados reais de clientes, faturamento ou informações sensíveis.
+          required: true
